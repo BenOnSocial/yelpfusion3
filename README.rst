@@ -5,7 +5,7 @@ yelpfusion3 Documentation
     :alt: Hatch project
     :target: https://github.com/pypa/hatch
 
-.. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=svg
+.. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
     :target: https://dl.circleci.com/status-badge/redirect/gh/BenOnSocial/yelpfusion3/tree/main
 
 *yelpfusion3* is a Python 3 wrapper for the
