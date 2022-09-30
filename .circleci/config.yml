@@ -1,0 +1,137 @@
+version: 2.1
+
+executors:
+  python-executor:
+    docker:
+      - image: cimg/python:3.9
+
+commands:
+  setup:
+    description: Common setup steps for basic jobs.
+    steps:
+      - checkout
+      - run:
+          name: Install hatch
+          command: python -m pip install --upgrade --no-cache-dir pip hatch
+
+  lint:
+    description: Execute lint tasks and publish report artifacts.
+    steps:
+      - run:
+          name: Run style checks
+          command: python -m hatch run style:check
+      - store_artifacts:
+          path: build/report/mypy
+          destination: mypy
+
+  version:
+    description: Sets the project version using the tag name.
+    steps:
+      - run:
+          name: Set the project version
+          command: python -m hatch version << pipeline.git.tag >>
+
+  build:
+    description: Execute build tasks and publish build artifacts.
+    steps:
+      - run:
+          name: Build distribution
+          command: python -m hatch build --clean
+      - store_artifacts:
+          path: dist
+          destination: dist
+
+  test:
+    description: Execute test automation and publish test results.
+    steps:
+      - run:
+          name: Run tests
+          command: python -m hatch run test:cov
+      - store_artifacts:
+          path: build/test/cov/html
+          destination: coverage
+      - store_test_results:
+          path: build/test/junit
+
+  doc:
+    description: Build and publish project documentation.
+    steps:
+      - run:
+          name: Build documentation
+          command: python -m hatch run doc:build
+      - store_artifacts:
+          path: doc/build/html
+          destination: doc
+
+  pypi:
+    description: Publish distribution to PyPi index.
+    parameters:
+      test:
+        description: Publishes to TestPyPi if 'true' (default).
+        type: boolean
+        default: true
+    steps:
+      - when:
+          condition: << parameters.test >>
+          steps:
+            - run:
+                name: Publish to TestPyPi index
+                command: python -m hatch run publish:test
+      - when:
+          condition:
+            not: << parameters.test >>
+          steps:
+            - run:
+                name: Publish to PyPi index
+                command: python -m hatch run publish:release
+
+
+jobs:
+  build:
+    executor: python-executor
+    steps:
+      - setup
+      - lint
+      - build
+      - test
+
+  doc:
+    executor: python-executor
+    steps:
+      - setup
+      - doc
+
+  publish:
+    executor: python-executor
+    steps:
+      - setup
+      - version
+      - build
+      - test
+      - pypi:
+          test: true
+#      - pypi:
+#          test: false
+
+
+workflows:
+  version: 2
+
+  main:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - doc:
+          filters:
+            tags:
+              only: /.*/
+      - publish:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
+            branches:
+              ignore: /.*/
