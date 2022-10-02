@@ -12,7 +12,7 @@ Business Endpoints
 .. automodule:: yelpfusion3.endpoint.businessdetailsendpoint
     :members:
 
-.. automodule:: yelpfusion3.endpoint.businessmatchendpoint
+.. automodule:: yelpfusion3.endpoint.businessmatchesendpoint
     :members:
 
 .. automodule:: yelpfusion3.endpoint.businesssearchendpoint
