@@ -1,8 +1,11 @@
 from typing import Optional
 
 from pydantic import constr, validator
+from requests import Response
+
 from yelpfusion3.endpoint import supported_locales
 from yelpfusion3.endpoint.endpoint import Endpoint
+from yelpfusion3.model.business.phonesearch import PhoneSearch
 
 
 class PhoneSearchEndpoint(Endpoint):
@@ -26,6 +29,10 @@ class PhoneSearchEndpoint(Endpoint):
     Optional. Specify the locale into which to localize the business information. See the list of supported locales.
     Defaults to en_US.
     """
+
+    def get(self) -> PhoneSearch:
+        response: Response = self._get()
+        return PhoneSearch(**response.json())
 
     @validator("locale")
     def check_locale(cls, v: str) -> str:

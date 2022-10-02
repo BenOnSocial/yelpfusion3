@@ -1,11 +1,11 @@
 import pytest
 
-from yelpfusion3.endpoint.businessmatchendpoint import BusinessMatchEndpoint
+from yelpfusion3.endpoint.businessmatchesendpoint import BusinessMatchesEndpoint
 
 
-class TestBusinessMatchEndpoint:
+class TestBusinessMatchesEndpoint:
     def test_url_build(self) -> None:
-        business_match_endpoint: BusinessMatchEndpoint = BusinessMatchEndpoint(
+        business_matches_endpoint: BusinessMatchesEndpoint = BusinessMatchesEndpoint(
             name="Gary Danko",
             address1="800 N Point St",
             city="San Francisco",
@@ -14,13 +14,13 @@ class TestBusinessMatchEndpoint:
         )
 
         assert (
-            business_match_endpoint.url()
+            business_matches_endpoint.url
             == "https://api.yelp.com/v3/businesses/matches?name=Gary+Danko&address1=800+N+Point+St&city=San+Francisco&state=CA&country=US"
         )
 
     def test_country_init_fails_validation(self) -> None:
         with pytest.raises(ValueError):
-            BusinessMatchEndpoint(
+            BusinessMatchesEndpoint(
                 name="Gary Danko",
                 address1="800 N Point St",
                 city="San Francisco",
@@ -29,7 +29,7 @@ class TestBusinessMatchEndpoint:
             )
 
     def test_country_fails_validation(self) -> None:
-        business_match_endpoint: BusinessMatchEndpoint = BusinessMatchEndpoint(
+        business_match_endpoint: BusinessMatchesEndpoint = BusinessMatchesEndpoint(
             name="Gary Danko",
             address1="800 N Point St",
             city="San Francisco",

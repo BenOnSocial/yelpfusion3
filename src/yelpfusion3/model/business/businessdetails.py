@@ -1,6 +1,6 @@
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, Field, HttpUrl, NonNegativeInt, validator
+from pydantic import BaseModel, HttpUrl, NonNegativeInt, confloat, validator
 
 from yelpfusion3.model.business.category import Category
 from yelpfusion3.model.business.coordinates import Coordinates
@@ -29,7 +29,7 @@ class BusinessDetails(BaseModel):
     Name of this business.
     """
 
-    image_url: Optional[HttpUrl]
+    image_url: Optional[HttpUrl] = None
     """
     URL of photo for this business.
     """
@@ -70,7 +70,7 @@ class BusinessDetails(BaseModel):
     A list of category title and alias pairs associated with this business.
     """
 
-    rating: float = Field(..., ge=0.0, le=5.0)
+    rating: confloat(ge=0.0, le=5.0)  # type: ignore
     """
     Rating for this business (value ranges from 1, 1.5, ... 4.5, 5).
     """
@@ -80,7 +80,7 @@ class BusinessDetails(BaseModel):
     The location of this business, including address, city, state, zip code and country.
     """
 
-    coordinates: Optional[Coordinates]
+    coordinates: Optional[Coordinates] = None
     """
     The coordinates of this business.
     """
@@ -95,7 +95,7 @@ class BusinessDetails(BaseModel):
     Price level of the business. Value is one of $, $$, $$$ and $$$$.
     """
 
-    hours: Optional[List[Hours]]
+    hours: Optional[List[Hours]] = None
     """
     Opening hours of the business.
     """
@@ -106,7 +106,7 @@ class BusinessDetails(BaseModel):
     and "restaurant_reservation".
     """
 
-    special_hours: Optional[List[SpecialHours]]
+    special_hours: Optional[List[SpecialHours]] = None
     """
     Out of the ordinary hours for the business that apply on certain dates. Whenever these are set, they will override
     the regular business hours found in the 'hours' field.

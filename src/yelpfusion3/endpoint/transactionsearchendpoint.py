@@ -1,8 +1,10 @@
 from typing import Optional
 
 from pydantic import confloat, constr
+from requests import Response
 
 from yelpfusion3.endpoint.endpoint import Endpoint
+from yelpfusion3.model.business.transactionsearch import TransactionSearch
 
 
 class TransactionSearchEndpoint(Endpoint):
@@ -28,3 +30,7 @@ class TransactionSearchEndpoint(Endpoint):
     """
     Required when latitude and longitude aren't provided. Address of the location you want to deliver to.
     """
+
+    def get(self) -> TransactionSearch:
+        response: Response = self._get()
+        return TransactionSearch(**response.json())

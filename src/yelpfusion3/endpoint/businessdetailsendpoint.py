@@ -2,9 +2,12 @@ from typing import Optional
 from urllib.parse import urlencode
 
 from pydantic import constr, validator
+from requests import Response
 
-from yelpfusion3.endpoint import base_url, supported_locales
+from yelpfusion3.endpoint import supported_locales
 from yelpfusion3.endpoint.endpoint import Endpoint
+from yelpfusion3.model.business.businessdetails import BusinessDetails
+from yelpfusion3.settings import Settings
 
 
 class BusinessDetailsEndpoint(Endpoint):
@@ -29,6 +32,7 @@ class BusinessDetailsEndpoint(Endpoint):
     Defaults to en_US.
     """
 
+    @property
     def url(self) -> str:
         """
         Constructs a URL to the business search endpoint with the given query parameters.
@@ -42,10 +46,15 @@ class BusinessDetailsEndpoint(Endpoint):
             if value is not None and key != "business_id"
         }
         parameters = urlencode(query=non_none_fields)
+        settings: Settings = Settings()
         if parameters:
-            return f"{base_url}{self._path}/{self.business_id}?{parameters}"
+            return f"{settings.base_url}{self._path}/{self.business_id}?{parameters}"
         else:
-            return f"{base_url}{self._path}/{self.business_id}"
+            return f"{settings.base_url}{self._path}/{self.business_id}"
+
+    def get(self) -> BusinessDetails:
+        response: Response = self._get()
+        return BusinessDetails(**response.json())
 
     @validator("locale")
     def check_locale(cls, v: str) -> str:

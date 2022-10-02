@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -31,7 +31,7 @@ class BusinessMatch(BaseModel):
     Street, city, state, country, etc. Same as the "location" in search.
     """
 
-    coordinates: Optional[Coordinates]
+    coordinates: Optional[Coordinates] = None
     """
     Latitude and longitude, if available. Same as the "coordinates" in search.
     """
@@ -40,3 +40,11 @@ class BusinessMatch(BaseModel):
     """
     The business's phone number.
     """
+
+
+class BusinessMatches(BaseModel):
+    """
+    List of Yelp business matches.
+    """
+
+    businesses: List[BusinessMatch]

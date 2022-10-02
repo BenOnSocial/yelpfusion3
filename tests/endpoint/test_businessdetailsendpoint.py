@@ -17,7 +17,7 @@ class TestBusinessDetailsEndpoint:
         )
 
         assert (
-            business_details_endpoint.url()
+            business_details_endpoint.url
             == f"https://api.yelp.com/v3/businesses/{business_id}"
         )
 
@@ -27,7 +27,7 @@ class TestBusinessDetailsEndpoint:
         )
 
         assert (
-            business_details_endpoint.url()
+            business_details_endpoint.url
             == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw?locale=en_US"
         )
 

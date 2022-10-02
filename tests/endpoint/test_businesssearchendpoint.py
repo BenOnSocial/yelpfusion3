@@ -14,7 +14,7 @@ class TestBusinessSearchEndpoint:
         )
 
         assert (
-            business_search_endpoint.url()
+            business_search_endpoint.url
             == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san+francisco&radius=25&limit=20&price=1%2C2"
         )
 
@@ -32,7 +32,7 @@ class TestBusinessSearchEndpoint:
             key for key, value in dict(business_search_endpoint).items()
         ]
         assert (
-            business_search_endpoint.url()
+            business_search_endpoint.url
             == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san+francisco&radius=25&limit=20&price=1%2C2"
         )
 

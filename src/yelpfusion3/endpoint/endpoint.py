@@ -1,12 +1,15 @@
 from urllib.parse import urlencode
 
+import requests
 from pydantic import BaseModel
-from yelpfusion3.endpoint import base_url
+from requests import Response
+
+from yelpfusion3.settings import Settings
 
 
 class Endpoint(BaseModel):
     """
-    TODO
+    Basic base class for all endpoint implementations.
     """
 
     class Config:
@@ -14,6 +17,7 @@ class Endpoint(BaseModel):
 
     _path: str
 
+    @property
     def url(self) -> str:
         """
         Constructs a URL to the business search endpoint with the given query parameters.
@@ -25,4 +29,8 @@ class Endpoint(BaseModel):
             key: value for key, value in self.dict().items() if value is not None
         }
         parameters = urlencode(query=non_none_fields)
-        return f"{base_url}{self._path}?{parameters}"
+        settings = Settings()
+        return f"{settings.base_url}{self._path}?{parameters}"
+
+    def _get(self) -> Response:
+        return requests.get(url=self.url, headers=Settings().headers)

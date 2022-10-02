@@ -10,7 +10,7 @@ class TestPhoneSearchEndpoint:
         )
 
         assert (
-            phone_search_endpoint.url()
+            phone_search_endpoint.url
             == "https://api.yelp.com/v3/businesses/search/phone?phone=%2B14159083801"
         )
 

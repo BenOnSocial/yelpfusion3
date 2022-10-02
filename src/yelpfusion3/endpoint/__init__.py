@@ -1,4 +1,3 @@
-base_url: str = "https://api.yelp.com/v3"
 supported_locales = [
     "cs_CZ",
     "da_DK",

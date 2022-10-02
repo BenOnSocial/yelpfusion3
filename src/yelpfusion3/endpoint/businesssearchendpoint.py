@@ -2,9 +2,11 @@ from typing import List, Literal, Optional
 
 import validators
 from pydantic import conint, constr, validator
+from requests import Response
 
 from yelpfusion3.endpoint import supported_locales
 from yelpfusion3.endpoint.endpoint import Endpoint
+from yelpfusion3.model.business.businesssearch import BusinessSearch
 
 
 class BusinessSearchEndpoint(Endpoint):
@@ -120,6 +122,10 @@ class BusinessSearchEndpoint(Endpoint):
         example, the attributes "hot_and_new,request_a_quote" will return businesses that are Hot and New AND offer
         Request a Quote.
     """
+
+    def get(self) -> BusinessSearch:
+        response: Response = self._get()
+        return BusinessSearch(**response.json())
 
     @validator("latitude")
     def check_latitude(cls, v: float) -> float:

@@ -10,7 +10,7 @@ class TestTransactionSearchEndpoint:
         )
 
         assert (
-            transaction_search_endpoint.url()
+            transaction_search_endpoint.url
             == "https://api.yelp.com/v3/transactions/delivery/search?location=800+N+Point+St+San+Francisco+CA"
         )
 
@@ -20,7 +20,7 @@ class TestTransactionSearchEndpoint:
         )
 
         assert (
-            transaction_search_endpoint.url()
+            transaction_search_endpoint.url
             == "https://api.yelp.com/v3/transactions/delivery/search?latitude=37.80587&longitude=-122.42058"
         )
 

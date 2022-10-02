@@ -15,7 +15,7 @@ class SpecialHours(BaseModel):
     An ISO8601 date string representing the date for which these special hours apply.
     """
 
-    is_closed: Optional[bool]
+    is_closed: Optional[bool] = None
     """
     Whether this particular special hour represents a date where the business is closed.
     """

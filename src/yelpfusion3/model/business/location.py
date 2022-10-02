@@ -9,13 +9,13 @@ class Location(BaseModel):
     The location of this business, including address, city, state, zip code and country.
     """
 
-    address1: Optional[str]
+    address1: Optional[str] = None
     "Street address of this business."
 
-    address2: Optional[str]
+    address2: Optional[str] = None
     "Street address of this business, continued."
 
-    address3: Optional[str]
+    address3: Optional[str] = None
     "Street address of this business, continued."
 
     city: str
@@ -36,7 +36,7 @@ class Location(BaseModel):
     business's country.
     """
 
-    cross_streets: Optional[str]
+    cross_streets: Optional[str] = None
     "Cross streets for this business. (Only used in business details search results.)"
 
     @validator("country")

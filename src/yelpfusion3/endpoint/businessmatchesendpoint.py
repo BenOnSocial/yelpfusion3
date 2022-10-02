@@ -2,11 +2,13 @@ from typing import Literal, Optional
 
 import pycountry
 from pydantic import confloat, conint, constr, validator
+from requests import Response
 
 from yelpfusion3.endpoint.endpoint import Endpoint
+from yelpfusion3.model.business.businessmatches import BusinessMatches
 
 
-class BusinessMatchEndpoint(Endpoint):
+class BusinessMatchesEndpoint(Endpoint):
     """
     This endpoint lets you match business data from other sources against businesses on Yelp, based on provided business
     information. For example, if you know a business's exact address and name, and you want to find that business and
@@ -98,6 +100,10 @@ class BusinessMatchEndpoint(Endpoint):
         default: Apply a match quality threshold such that only very closely matching businesses will be returned.
         strict: Apply a very strict match quality threshold.
     """
+
+    def get(self) -> BusinessMatches:
+        response: Response = self._get()
+        return BusinessMatches(**response.json())
 
     @validator("country")
     def check_country(cls, v: str) -> str:

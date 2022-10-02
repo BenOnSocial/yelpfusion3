@@ -1,6 +1,6 @@
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, Field, HttpUrl, NonNegativeInt, validator
+from pydantic import BaseModel, HttpUrl, NonNegativeInt, confloat, validator
 
 from yelpfusion3.model.business.category import Category
 from yelpfusion3.model.business.coordinates import Coordinates
@@ -17,7 +17,7 @@ class Business(BaseModel):
     A list of category title and alias pairs associated with this business.
     """
 
-    coordinates: Optional[Coordinates]
+    coordinates: Optional[Coordinates] = None
     """
     The coordinates of this business.
     """
@@ -28,7 +28,7 @@ class Business(BaseModel):
     format for the business's country.
     """
 
-    distance: Optional[float]
+    distance: Optional[float] = None
     """
     Distance in meters from the search location. This returns meters regardless of the locale.
     """
@@ -43,7 +43,7 @@ class Business(BaseModel):
     Unique Yelp alias of this business. Can contain unicode characters. Example: 'yelp-san-francisco'.
     """
 
-    image_url: Optional[HttpUrl]
+    image_url: Optional[HttpUrl] = None
     """
     URL of photo for this business.
     """
@@ -63,17 +63,17 @@ class Business(BaseModel):
     Name of this business.
     """
 
-    phone: str
+    phone: Optional[str] = None
     """
     Phone number of the business.
     """
 
-    price: Literal["$", "$$", "$$$", "$$$$"]
+    price: Optional[Literal["$", "$$", "$$$", "$$$$"]] = None
     """
     Price level of the business. Value is one of $, $$, $$$ and $$$$.
     """
 
-    rating: float = Field(..., ge=0.0, le=5.0)
+    rating: confloat(ge=0.0, le=5.0)  # type: ignore
     """
     Rating for this business (value ranges from 1, 1.5, ... 4.5, 5).
     """
