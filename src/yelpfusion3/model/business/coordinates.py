@@ -1,7 +1,9 @@
-from pydantic import BaseModel, confloat
+from pydantic import confloat
+
+from yelpfusion3.model.model import Model
 
 
-class Coordinates(BaseModel):
+class Coordinates(Model):
     """
     The coordinates of this business.
     """

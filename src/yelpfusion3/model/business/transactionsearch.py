@@ -1,11 +1,12 @@
 from typing import List
 
-from pydantic import BaseModel, NonNegativeInt
+from pydantic import NonNegativeInt
 
 from yelpfusion3.model.business.business import Business
+from yelpfusion3.model.model import Model
 
 
-class TransactionSearch(BaseModel):
+class TransactionSearch(Model):
     """
     A list of businesses which support food delivery transactions.
     """

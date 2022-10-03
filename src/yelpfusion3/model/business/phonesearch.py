@@ -1,11 +1,12 @@
 from typing import List
 
-from pydantic import BaseModel, NonNegativeInt
+from pydantic import NonNegativeInt
 
 from yelpfusion3.model.business.business import Business
+from yelpfusion3.model.model import Model
 
 
-class PhoneSearch(BaseModel):
+class PhoneSearch(Model):
     """
     A list of businesses based on the provided phone number.
     """

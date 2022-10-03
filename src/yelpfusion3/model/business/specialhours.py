@@ -1,10 +1,12 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import validator
+
+from yelpfusion3.model.model import Model
 
 
-class SpecialHours(BaseModel):
+class SpecialHours(Model):
     """
     Out of the ordinary hours for the business that apply on certain dates. Whenever these are set, they will override
     the regular business hours found in the 'hours' field.

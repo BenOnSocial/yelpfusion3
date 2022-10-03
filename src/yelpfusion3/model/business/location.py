@@ -1,21 +1,23 @@
 from typing import List, Optional
 
 import pycountry
-from pydantic import BaseModel, validator
+from pydantic import constr, validator
+
+from yelpfusion3.model.model import Model
 
 
-class Location(BaseModel):
+class Location(Model):
     """
     The location of this business, including address, city, state, zip code and country.
     """
 
-    address1: Optional[str] = None
+    address1: Optional[constr(strip_whitespace=True)] = None  # type: ignore
     "Street address of this business."
 
-    address2: Optional[str] = None
+    address2: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
     "Street address of this business, continued."
 
-    address3: Optional[str] = None
+    address3: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
     "Street address of this business, continued."
 
     city: str
@@ -36,7 +38,7 @@ class Location(BaseModel):
     business's country.
     """
 
-    cross_streets: Optional[str] = None
+    cross_streets: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
     "Cross streets for this business. (Only used in business details search results.)"
 
     @validator("country")

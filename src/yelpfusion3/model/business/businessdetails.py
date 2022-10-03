@@ -1,15 +1,16 @@
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, HttpUrl, NonNegativeInt, confloat, validator
+from pydantic import HttpUrl, NonNegativeInt, confloat, validator
 
 from yelpfusion3.model.business.category import Category
 from yelpfusion3.model.business.coordinates import Coordinates
 from yelpfusion3.model.business.hours import Hours
 from yelpfusion3.model.business.location import Location
 from yelpfusion3.model.business.specialhours import SpecialHours
+from yelpfusion3.model.model import Model
 
 
-class BusinessDetails(BaseModel):
+class BusinessDetails(Model):
     """
     Detailed information about a business.
     """

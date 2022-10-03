@@ -1,9 +1,11 @@
 from typing import List, Literal
 
-from pydantic import BaseModel, validator
+from pydantic import validator
+
+from yelpfusion3.model.model import Model
 
 
-class DetailedHours(BaseModel):
+class DetailedHours(Model):
     """
     Opening hours of the business for a given day of the week.
     """
@@ -44,7 +46,7 @@ class DetailedHours(BaseModel):
         raise ValueError("Not a valid end time.")
 
 
-class Hours(BaseModel):
+class Hours(Model):
     """
     Opening hours of the business.
     """

@@ -1,12 +1,11 @@
 from typing import List
 
-from pydantic import BaseModel
-
 from yelpfusion3.model.business.business import Business
 from yelpfusion3.model.business.coordinates import Coordinates
+from yelpfusion3.model.model import Model
 
 
-class Region(BaseModel):
+class Region(Model):
     """
     Suggested area in a map to display results in.
     """
@@ -17,7 +16,7 @@ class Region(BaseModel):
     """
 
 
-class BusinessSearch(BaseModel):
+class BusinessSearch(Model):
     total: int
     """
     Total number of business Yelp finds based on the search criteria. Sometimes, the value may exceed 1000. In such

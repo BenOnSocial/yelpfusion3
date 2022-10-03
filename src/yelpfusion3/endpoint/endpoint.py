@@ -13,6 +13,8 @@ class Endpoint(BaseModel):
     """
 
     class Config:
+        anystr_strip_whitespace = True
+        min_anystr_length = 1
         validate_assignment = True
 
     _path: str

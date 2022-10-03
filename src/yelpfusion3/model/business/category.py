@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from yelpfusion3.model.model import Model
 
 
-class Category(BaseModel):
+class Category(Model):
     """
     Category title and alias pairs associated with this business.
     """

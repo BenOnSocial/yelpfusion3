@@ -1,12 +1,11 @@
 from typing import List, Optional
 
-from pydantic import BaseModel
-
 from yelpfusion3.model.business.coordinates import Coordinates
 from yelpfusion3.model.business.location import Location
+from yelpfusion3.model.model import Model
 
 
-class BusinessMatch(BaseModel):
+class BusinessMatch(Model):
     """
     A Yelp business matching the inputs.
     """
@@ -42,7 +41,7 @@ class BusinessMatch(BaseModel):
     """
 
 
-class BusinessMatches(BaseModel):
+class BusinessMatches(Model):
     """
     List of Yelp business matches.
     """
