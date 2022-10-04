@@ -7,10 +7,12 @@ from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
 from yelpfusion3.endpoint.businessmatchesendpoint import BusinessMatchesEndpoint
 from yelpfusion3.endpoint.businesssearchendpoint import BusinessSearchEndpoint
 from yelpfusion3.endpoint.phonesearchendpoint import PhoneSearchEndpoint
+from yelpfusion3.endpoint.transactionsearchendpoint import TransactionSearchEndpoint
 from yelpfusion3.model.business.businessdetails import BusinessDetails
 from yelpfusion3.model.business.businessmatches import BusinessMatches
 from yelpfusion3.model.business.businesssearch import BusinessSearch
 from yelpfusion3.model.business.phonesearch import PhoneSearch
+from yelpfusion3.model.business.transactionsearch import TransactionSearch
 
 
 @pytest.mark.skipif(
@@ -87,6 +89,18 @@ class TestClient:
             for business in business_search.businesses
         )
 
+    def test_business_search_missing_arguments_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.business_search()
+
+    def test_business_search_missing_longitude_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.business_search(latitude=37.32238222393683)
+
+    def test_business_search_missing_latitude_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.business_search(longitude=-122.0306396484375)
+
     def test_phone_search(self) -> None:
         phone_search_endpoint: PhoneSearchEndpoint = Client.phone_search(
             phone="+14157492060"
@@ -109,3 +123,41 @@ class TestClient:
 
         assert phone_search.total == 0
         assert not phone_search.businesses
+
+    def test_transaction_search_by_location(self) -> None:
+        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
+            location="20488 Stevens Creek Blvd, Cupertino, CA 95014"
+        )
+
+        transaction_search: TransactionSearch = transaction_search_endpoint.get()
+
+        assert transaction_search.total > 0
+        assert all(
+            "delivery" in business.transactions
+            for business in transaction_search.businesses
+        )
+
+    def test_transaction_search_by_latitude_longitude(self) -> None:
+        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
+            latitude=37.32238222393683, longitude=-122.0306396484375
+        )
+
+        transaction_search: TransactionSearch = transaction_search_endpoint.get()
+
+        assert transaction_search.total > 0
+        assert all(
+            "delivery" in business.transactions
+            for business in transaction_search.businesses
+        )
+
+    def test_transaction_search_missing_arguments_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.transaction_search()
+
+    def test_transaction_search_missing_longitude_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.transaction_search(latitude=37.32238222393683)
+
+    def test_transaction_search_missing_latitude_raises_error(self) -> None:
+        with pytest.raises(ValueError):
+            Client.transaction_search(longitude=-122.0306396484375)
