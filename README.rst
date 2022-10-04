@@ -11,6 +11,10 @@ yelpfusion3 Documentation
 .. image:: https://coveralls.io/repos/github/BenOnSocial/yelpfusion3/badge.svg?branch=main
     :target: https://coveralls.io/github/BenOnSocial/yelpfusion3?branch=main
 
+.. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
+    :target: https://yelpfusion3.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 *yelpfusion3* is a Python 3 wrapper for the
 `Yelp Fusion 3 API <https://www.yelp.com/developers/documentation/v3/get_started>`_.
 
