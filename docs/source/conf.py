@@ -39,8 +39,6 @@ html_static_path = []
 
 # See https://sphinx-rtd-theme.readthedocs.io/en/stable/configuring.html for details.
 html_theme_options = {
-    "analytics_id": "G-Y2C6FCE080",
-    "analytics_anonymize_ip": True,  # GDPR
     "display_version": True,
     "prev_next_buttons_location": "bottom",
     "style_external_links": True,
