@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.2.3
+
 executors:
   python-executor:
     docker:
@@ -50,6 +53,7 @@ commands:
       - run:
           name: Publish test coverage
           command: python -m hatch run test:publish
+      - codecov/upload
       - store_artifacts:
           path: build/test/cov/html
           destination: coverage
