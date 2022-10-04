@@ -1,8 +1,3 @@
-.. toctree::
-   :hidden:
-   :caption: API Reference
-
-
 Models
 ======
 

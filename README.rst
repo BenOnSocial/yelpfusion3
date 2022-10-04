@@ -41,7 +41,19 @@ Set the `YELP_API_KEY` environment variable to be your private API key. Setting 
 is currently the only supported method for supplying
 your API key to the `yelpfusion3` client.
 
-TBA
+.. code-block:: python
+    :caption: Get details for a business using its unique Yelp business ID
+
+    from yelpfusion3.client import Client
+    from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
+    from yelpfusion3.model.business.businessdetails import BusinessDetails
+
+    # Get business details for Gary Danko in San Francisco using its Yelp business ID.
+    business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
+            "WavvLdfdP6g8aZTtbBQHTw"
+    )
+
+    business_details: BusinessDetails = business_details_endpoint.get()
 
 License
 -------
