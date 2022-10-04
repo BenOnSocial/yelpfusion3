@@ -8,6 +8,9 @@ yelpfusion3 Documentation
 .. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
     :target: https://dl.circleci.com/status-badge/redirect/gh/BenOnSocial/yelpfusion3/tree/main
 
+.. image:: https://coveralls.io/repos/github/BenOnSocial/yelpfusion3/badge.svg?branch=main
+    :target: https://coveralls.io/github/BenOnSocial/yelpfusion3?branch=main
+
 *yelpfusion3* is a Python 3 wrapper for the
 `Yelp Fusion 3 API <https://www.yelp.com/developers/documentation/v3/get_started>`_.
 

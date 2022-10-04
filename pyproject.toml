@@ -89,6 +89,7 @@ format = [
 
 [tool.hatch.envs.test]
 dependencies = [
+    "coveralls",
     "coverage[toml]",
     "pytest",
     "pytest-cov",
@@ -96,6 +97,9 @@ dependencies = [
 [tool.hatch.envs.test.scripts]
 cov = [
     "python -m pytest",
+]
+publish = [
+    "coveralls",
 ]
 [[tool.hatch.envs.test.matrix]]
 python = ["39", "310"]

@@ -47,6 +47,9 @@ commands:
       - run:
           name: Run tests
           command: python -m hatch run test:cov
+      - run:
+          name: Publish test coverage
+          command: python -m hatch run test:publish
       - store_artifacts:
           path: build/test/cov/html
           destination: coverage
