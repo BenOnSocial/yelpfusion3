@@ -2,17 +2,15 @@ yelpfusion3 Documentation
 =========================
 
 .. image:: https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg
-    :alt: Hatch project
-    :target: https://github.com/pypa/hatch
+    :alt: Hatch Project
 
 .. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
-    :target: https://dl.circleci.com/status-badge/redirect/gh/BenOnSocial/yelpfusion3/tree/main
+    :alt: CI build
 
 .. image:: https://coveralls.io/repos/github/BenOnSocial/yelpfusion3/badge.svg?branch=main
-    :target: https://coveralls.io/github/BenOnSocial/yelpfusion3?branch=main
+    :alt: Code Coverage
 
 .. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
-    :target: https://yelpfusion3.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
 *yelpfusion3* is a Python 3 wrapper for the
