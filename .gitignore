@@ -12,4 +12,8 @@
 /.mypy_cache
 /.pytest_cache
 /.coverage
+/cobertura.xml
 __pycache__/
+
+# Miscellaneous
+.DS_Store
