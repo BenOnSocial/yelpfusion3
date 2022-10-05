@@ -11,10 +11,11 @@ Indices and tables
    :hidden:
    :caption: API Reference
 
-   api/index
+   api/endpoint
+   api/model
 
 .. toctree::
    :hidden:
    :caption: Examples
 
-   examples/index
+   examples/examples
