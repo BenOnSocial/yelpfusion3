@@ -1,17 +1,14 @@
 yelpfusion3 Documentation
 =========================
 
-.. image:: https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg
-    :alt: Hatch Project
-
 .. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
-    :alt: CI build
+   :alt: CI build
 
-.. image:: https://coveralls.io/repos/github/BenOnSocial/yelpfusion3/badge.svg?branch=main
-    :alt: Code Coverage
+.. image:: https://codecov.io/gh/BenOnSocial/yelpfusion3/branch/main/graph/badge.svg?token=LFX14ACT4Y
+   :alt: Code Coverage
 
 .. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
-    :alt: Documentation Status
+   :alt: Documentation Status
 
 *yelpfusion3* is a Python 3 wrapper for the
 `Yelp Fusion 3 API <https://www.yelp.com/developers/documentation/v3/get_started>`_.
@@ -21,8 +18,8 @@ Installation
 
 .. code-block:: console
 
-    python -m pip install --upgrade pip
-    python -m pip install --upgrade yelpfusion3
+   python -m pip install --upgrade pip
+   python -m pip install --upgrade yelpfusion3
 
 Yelp API Key
 ------------
@@ -40,18 +37,18 @@ is currently the only supported method for supplying
 your API key to the `yelpfusion3` client.
 
 .. code-block:: python
-    :caption: Get details for a business using its unique Yelp business ID
+   :caption: Get details for a business using its unique Yelp business ID
 
-    from yelpfusion3.client import Client
-    from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
-    from yelpfusion3.model.business.businessdetails import BusinessDetails
+   from yelpfusion3.client import Client
+   from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
+   from yelpfusion3.model.business.businessdetails import BusinessDetails
 
-    # Get business details for Gary Danko in San Francisco using its Yelp business ID.
-    business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
-            "WavvLdfdP6g8aZTtbBQHTw"
-    )
+   # Get business details for Gary Danko in San Francisco using its Yelp business ID.
+   business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
+       "WavvLdfdP6g8aZTtbBQHTw"
+   )
 
-    business_details: BusinessDetails = business_details_endpoint.get()
+   business_details: BusinessDetails = business_details_endpoint.get()
 
 License
 -------
