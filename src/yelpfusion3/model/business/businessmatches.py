@@ -12,7 +12,7 @@ class BusinessMatch(Model):
 
     id: str
     """
-    Unique Yelp ID of this business. Example: '4kMBvIEWPxWkWKFN__8SxQ'
+    Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
 
     alias: str
@@ -27,12 +27,12 @@ class BusinessMatch(Model):
 
     location: Location
     """
-    Street, city, state, country, etc. Same as the "location" in search.
+    Street, city, state, country, etc. Same as the ``location`` in search.
     """
 
     coordinates: Optional[Coordinates] = None
     """
-    Latitude and longitude, if available. Same as the "coordinates" in search.
+    Latitude and longitude, if available. Same as the ``coordinates`` in search.
     """
 
     phone: str
@@ -47,3 +47,6 @@ class BusinessMatches(Model):
     """
 
     businesses: List[BusinessMatch]
+    """
+    List of Yelp business matches.
+    """

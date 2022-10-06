@@ -21,13 +21,13 @@ class PhoneSearchEndpoint(Endpoint):
     phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")  # type: ignore
     """
     Required. Phone number of the business you want to search for. It must start with + and include the country code,
-    like +14159083801.
+    like ``+14159083801``.
     """
 
     locale: Optional[str]
     """
     Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to en_US.
+    Defaults to ``en_US``.
     """
 
     def get(self) -> PhoneSearch:
@@ -35,15 +35,15 @@ class PhoneSearchEndpoint(Endpoint):
         return PhoneSearch(**response.json())
 
     @validator("locale")
-    def check_locale(cls, v: str) -> str:
+    def _check_locale(cls, v: str) -> str:
         """
         Validates that the locale is supported by Yelp Fusion API 3.
         See https://www.yelp.com/developers/documentation/v3/supported_locales
 
         :param v: Locale of the response body.
         :type v: str
-        :raise ValueError: "v" is an unsupported locale value.
-        :return: "v" if it's a supported locale.
+        :raise ValueError: ``v`` is an unsupported locale value.
+        :return: ``v`` if it's a supported locale.
         :rtype: str
         """
         if v not in supported_locales:

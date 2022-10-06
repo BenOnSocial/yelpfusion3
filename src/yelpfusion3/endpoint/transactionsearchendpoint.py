@@ -18,17 +18,17 @@ class TransactionSearchEndpoint(Endpoint):
 
     latitude: Optional[confloat(ge=-90.0, le=90.0)]  # type: ignore
     """
-    Required when location isn't provided. Latitude of the location you want to deliver to.
+    Required when ``location`` isn't provided. Latitude of the location you want to deliver to.
     """
 
     longitude: Optional[confloat(ge=-180.0, le=180.0)]  # type: ignore
     """
-    Required when location isn't provided. Longitude of the location you want to deliver to.
+    Required when ``location`` isn't provided. Longitude of the location you want to deliver to.
     """
 
     location: Optional[constr(min_length=1, strip_whitespace=True)]  # type: ignore
     """
-    Required when latitude and longitude aren't provided. Address of the location you want to deliver to.
+    Required when ``latitude`` and ``longitude`` aren't provided. Address of the location you want to deliver to.
     """
 
     def get(self) -> TransactionSearch:

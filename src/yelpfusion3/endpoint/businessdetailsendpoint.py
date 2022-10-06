@@ -12,9 +12,12 @@ from yelpfusion3.settings import Settings
 
 class BusinessDetailsEndpoint(Endpoint):
     """
-    This endpoint returns detailed business content. Normally, you would get the Business ID from /businesses/search,
-    /businesses/search/phone, /transactions/{transaction_type}/search or /autocomplete. To retrieve review excerpts for
-    a business, please refer to our Reviews endpoint (/businesses/{id}/reviews)
+    This endpoint returns detailed business content. Normally, you would get the Business ID from
+    :py:class:`~yelpfusion3.endpoint.businesssearchendpoint.BusinessSearchEndpoint`,
+    :py:class:`~yelpfusion3.endpoint.reviewsendpoint.ReviewsEndpoint`,
+    :py:class:`~yelpfusion3.endpoint.transactionsearchendpoint.TransactionSearchEndpoint` or
+    ``/autocomplete``. To retrieve review excerpts for a business, please refer to
+    :py:class:`~yelpfusion3.endpoint.reviewsendpoint.ReviewsEndpoint`.
 
     Note: at this time, the API does not return businesses without any reviews.
     """
@@ -29,7 +32,7 @@ class BusinessDetailsEndpoint(Endpoint):
     locale: Optional[str]
     """
     Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to en_US.
+    Defaults to ``en_US``.
     """
 
     @property
@@ -57,7 +60,7 @@ class BusinessDetailsEndpoint(Endpoint):
         return BusinessDetails(**response.json())
 
     @validator("locale")
-    def check_locale(cls, v: str) -> str:
+    def _check_locale(cls, v: str) -> str:
         """
         Validates that the locale is supported by Yelp Fusion API 3.
         See https://www.yelp.com/developers/documentation/v3/supported_locales

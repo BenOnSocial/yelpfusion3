@@ -5,19 +5,22 @@ Business Endpoints
 ------------------
 
 .. automodule:: yelpfusion3.endpoint.businessdetailsendpoint
-    :members:
+   :members:
 
 .. automodule:: yelpfusion3.endpoint.businessmatchesendpoint
-    :members:
+   :members:
 
 .. automodule:: yelpfusion3.endpoint.businesssearchendpoint
-    :members:
+   :members:
 
 .. automodule:: yelpfusion3.endpoint.endpoint
-    :members:
+   :members:
 
 .. automodule:: yelpfusion3.endpoint.phonesearchendpoint
-    :members:
+   :members:
+
+.. automodule:: yelpfusion3.endpoint.reviewsendpoint
+   :members:
 
 .. automodule:: yelpfusion3.endpoint.transactionsearchendpoint
-    :members:
+   :members:

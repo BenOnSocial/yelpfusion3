@@ -36,12 +36,12 @@ class Business(Model):
 
     id: str
     """
-    Unique Yelp ID of this business. Example: '4kMBvIEWPxWkWKFN__8SxQ'
+    Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
 
     alias: str
     """
-    Unique Yelp alias of this business. Can contain unicode characters. Example: 'yelp-san-francisco'.
+    Unique Yelp alias of this business. Can contain unicode characters. Example: ``yelp-san-francisco``.
     """
 
     image_url: Optional[HttpUrl] = None
@@ -71,7 +71,7 @@ class Business(Model):
 
     price: Optional[Literal["$", "$$", "$$$", "$$$$"]] = None
     """
-    Price level of the business. Value is one of $, $$, $$$ and $$$$.
+    Price level of the business. Value is one of ``$``, ``$$``, ``$$$`` and ``$$$$``.
     """
 
     rating: confloat(ge=0.0, le=5.0)  # type: ignore
@@ -91,19 +91,19 @@ class Business(Model):
 
     transactions: List[Literal["pickup", "delivery", "restaurant_reservation"]]
     """
-    A list of Yelp transactions that the business is registered for. Current supported values are "pickup", "delivery",
-    and "restaurant_reservation".
+    A list of Yelp transactions that the business is registered for. Current supported values are ``pickup``,
+    ``delivery``, and ``restaurant_reservation``.
     """
 
     @validator("distance")
-    def check_distance(cls, v: float) -> float:
+    def _check_distance(cls, v: float) -> float:
         """
-        Checks that "distance" is non-negative.
+        Checks that ``distance`` is non-negative.
 
         :param v: Distance in meters from the search location.
         :type v: float
-        :raise ValueError: If "v" is a negative float.
-        :return: "v" if it's non-negative.
+        :raise ValueError: If ``v`` is a negative float.
+        :return: ``v`` if it's non-negative.
         :rtype: float
         """
         if v <= 0.0:
@@ -111,14 +111,14 @@ class Business(Model):
         return v
 
     @validator("rating")
-    def check_rating(cls, v: float) -> float:
+    def _check_rating(cls, v: float) -> float:
         """
-        Checks that the "rating" value is within the range of 1, 1.5, ... 4.5, 5.
+        Checks that the ``rating`` value is within the range of 1, 1.5, ... 4.5, 5.
 
         :param v: Rating for the business.
         :type v: float
-        :raise ValueError: If "v" not in the range of 1, 1.5, ... 4.5, 5.
-        :return: "v" if it's in the range of 1, 1.5, ... 4.5, 5.
+        :raise ValueError: If ``v`` not in the range of 1, 1.5, ... 4.5, 5.
+        :return: ``v`` if it's in the range of 1, 1.5, ... 4.5, 5.
         :rtype: float
         """
         # Avoid using NumPy for this. It's probably overkill here.

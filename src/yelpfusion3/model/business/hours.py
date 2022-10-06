@@ -12,17 +12,17 @@ class DetailedHours(Model):
 
     is_overnight: bool = False
     """
-    Whether the business opens overnight or not. When this is true, the end time will be lower than the start time.
+    Whether the business opens overnight or not. When this is ``True``, the end time will be lower than the start time.
     """
 
     start: str
     """
-    Start of the opening hours in a day, in 24-hour clock notation, like 1000 means 10 AM.
+    Start of the opening hours in a day, in 24-hour clock notation, like ``1000`` means 10 AM.
     """
 
     end: str
     """
-    End of the opening hours in a day, in 24-hour clock notation, like 2130 means 9:30 PM.
+    End of the opening hours in a day, in 24-hour clock notation, like ``2130`` means 9:30 PM.
     """
 
     day: Literal[0, 1, 2, 3, 4, 5, 6]
@@ -32,14 +32,14 @@ class DetailedHours(Model):
     """
 
     @validator("start")
-    def check_start(cls, v: str) -> str:
+    def _check_start(cls, v: str) -> str:
         value = int(v)
         if 0 <= value <= 2400:
             return v
         raise ValueError("Not a valid start time.")
 
     @validator("end")
-    def check_end(cls, v: str) -> str:
+    def _check_end(cls, v: str) -> str:
         value = int(v)
         if 0 <= value <= 2400:
             return v
@@ -58,7 +58,7 @@ class Hours(Model):
 
     hours_type: Literal["REGULAR"]
     """
-    The type of the opening hours information. Right now, this is always REGULAR.
+    The type of the opening hours information. Right now, this is always ``REGULAR``.
     """
 
     is_open_now: bool

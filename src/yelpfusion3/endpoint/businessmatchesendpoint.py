@@ -21,32 +21,32 @@ class BusinessMatchesEndpoint(Endpoint):
 
     name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$")  # type: ignore
     """
-    Required. The name of the business. Maximum length is 64; only digits, letters, spaces, and !#$%&+,./:?@'
+    Required. The name of the business. Maximum length is 64; only digits, letters, spaces, and ``!#$%&+,./:?@'``
     are allowed.
     """
 
     address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")  # type: ignore
     """
     Required. The first line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
-    '/#&,.: are allowed. The empty string "" is allowed; this will specifically match certain service businesses that
+    ``'/#&,.:`` are allowed. The empty string "" is allowed; this will specifically match certain service businesses that
     have no street address.
     """
 
     address2: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]  # type: ignore
     """
     Optional. The second line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
-    '/#&,.: are allowed.
+    ``'/#&,.:`` are allowed.
     """
 
     address3: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]  # type: ignore
     """
     Optional. The third line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
-    '/#&,.: are allowed.
+    ``'/#&,.:`` are allowed.
     """
 
     city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$")  # type: ignore
     """
-    Required. The city of the business. Maximum length is 64; only digits, letters, spaces, and '.() are allowed.
+    Required. The city of the business. Maximum length is 64; only digits, letters, spaces, and ``'.()`` are allowed.
     """
 
     state: constr(min_length=2, max_length=3, to_upper=True)  # type: ignore
@@ -94,11 +94,13 @@ class BusinessMatchesEndpoint(Endpoint):
     match_threshold: Optional[Literal["none", "default", "strict"]]
     """
     Optional. Specifies whether a match quality threshold should be applied to the matched businesses. Must be one of
-    'none', 'default' or 'strict'.
+    ``none``, ``default`` or ``strict``.
 
-        none: Do not apply any match quality threshold; all potential business matches will be returned.
-        default: Apply a match quality threshold such that only very closely matching businesses will be returned.
-        strict: Apply a very strict match quality threshold.
+        ``none``: Do not apply any match quality threshold; all potential business matches will be returned.
+        
+        ``default``: Apply a match quality threshold such that only very closely matching businesses will be returned.
+        
+        ``strict``: Apply a very strict match quality threshold.
     """
 
     def get(self) -> BusinessMatches:
