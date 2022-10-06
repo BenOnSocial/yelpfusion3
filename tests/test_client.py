@@ -7,11 +7,13 @@ from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
 from yelpfusion3.endpoint.businessmatchesendpoint import BusinessMatchesEndpoint
 from yelpfusion3.endpoint.businesssearchendpoint import BusinessSearchEndpoint
 from yelpfusion3.endpoint.phonesearchendpoint import PhoneSearchEndpoint
+from yelpfusion3.endpoint.reviewsendpoint import ReviewsEndpoint
 from yelpfusion3.endpoint.transactionsearchendpoint import TransactionSearchEndpoint
 from yelpfusion3.model.business.businessdetails import BusinessDetails
 from yelpfusion3.model.business.businessmatches import BusinessMatches
 from yelpfusion3.model.business.businesssearch import BusinessSearch
 from yelpfusion3.model.business.phonesearch import PhoneSearch
+from yelpfusion3.model.business.reviews import Reviews
 from yelpfusion3.model.business.transactionsearch import TransactionSearch
 
 
@@ -21,7 +23,7 @@ from yelpfusion3.model.business.transactionsearch import TransactionSearch
 class TestClient:
     def test_business_details(self) -> None:
         business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
-            "WavvLdfdP6g8aZTtbBQHTw"
+            business_id="WavvLdfdP6g8aZTtbBQHTw"
         )
 
         business_details: BusinessDetails = business_details_endpoint.get()
@@ -124,9 +126,24 @@ class TestClient:
         assert phone_search.total == 0
         assert not phone_search.businesses
 
+    def test_reviews(self) -> None:
+        reviews_endpoint: ReviewsEndpoint = Client.reviews(
+            business_id="WavvLdfdP6g8aZTtbBQHTw"
+        )
+
+        reviews: Reviews = reviews_endpoint.get()
+
+        # "total" returns the total number of reviews that a business has.
+        assert reviews.total > 3
+        # The "reviews" list returns a maximum of 3 reviews.
+        assert len(reviews.reviews) == 3
+        assert "en" in reviews.possible_languages
+
     def test_transaction_search_by_location(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
-            location="20488 Stevens Creek Blvd, Cupertino, CA 95014"
+        transaction_search_endpoint: TransactionSearchEndpoint = (
+            Client.transaction_search(
+                location="20488 Stevens Creek Blvd, Cupertino, CA 95014"
+            )
         )
 
         transaction_search: TransactionSearch = transaction_search_endpoint.get()
@@ -138,8 +155,10 @@ class TestClient:
         )
 
     def test_transaction_search_by_latitude_longitude(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
-            latitude=37.32238222393683, longitude=-122.0306396484375
+        transaction_search_endpoint: TransactionSearchEndpoint = (
+            Client.transaction_search(
+                latitude=37.32238222393683, longitude=-122.0306396484375
+            )
         )
 
         transaction_search: TransactionSearch = transaction_search_endpoint.get()
