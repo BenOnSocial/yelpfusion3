@@ -97,7 +97,6 @@ dependencies = [
 [tool.hatch.envs.test.scripts]
 cov = [
     "python -m pytest",
-    "coverage xml -o cobertura.xml"
 ]
 publish = [
     "coveralls",
@@ -146,10 +145,19 @@ source = [
 show_missing = true
 skip_empty = true
 exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
 ]
+omit = [
+    "src/yelpfusion3/model/model.py",
+]
+
+[tool.coverage.html]
+directory = "build/test/cov/html"
+
+[tool.coverage.xml]
+output = "cobertura.xml"
 
 
 [tool.isort]
@@ -174,9 +182,9 @@ minversion = "6.0"
 addopts = [
     "--cov=yelpfusion3",
     "--cov-report=term-missing",
-    "--cov-report",
-    "html:build/test/cov/html",
-     "--junitxml=build/test/junit/test-results.xml",
+    "--cov-report", "xml",
+    "--cov-report", "html",
+    "--junitxml=build/test/junit/test-results.xml",
 ]
 pythonpath = [
     "src",
