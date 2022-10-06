@@ -150,17 +150,18 @@ exclude_lines = [
     "if TYPE_CHECKING:",
 ]
 omit = [
-    "src/yelpfusion3/model/model.py",
+    "src/yelpfusion3/model.py",
 ]
 
 [tool.coverage.html]
 directory = "build/test/cov/html"
 
 [tool.coverage.xml]
-output = "cobertura.xml"
+output = "build/test/cov/cobertura.xml"
 
 
 [tool.isort]
+profile = "black"
 skip = [
     ".gitignore"
 ]

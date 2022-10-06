@@ -2,19 +2,23 @@ import os
 
 import pytest
 
+from yelpfusion3.business.endpoint import (
+    BusinessDetailsEndpoint,
+    BusinessMatchesEndpoint,
+    BusinessSearchEndpoint,
+    PhoneSearchEndpoint,
+    ReviewsEndpoint,
+    TransactionSearchEndpoint,
+)
+from yelpfusion3.business.model import (
+    BusinessDetails,
+    BusinessMatches,
+    BusinessSearch,
+    PhoneSearch,
+    Reviews,
+    TransactionSearch,
+)
 from yelpfusion3.client import Client
-from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
-from yelpfusion3.endpoint.businessmatchesendpoint import BusinessMatchesEndpoint
-from yelpfusion3.endpoint.businesssearchendpoint import BusinessSearchEndpoint
-from yelpfusion3.endpoint.phonesearchendpoint import PhoneSearchEndpoint
-from yelpfusion3.endpoint.reviewsendpoint import ReviewsEndpoint
-from yelpfusion3.endpoint.transactionsearchendpoint import TransactionSearchEndpoint
-from yelpfusion3.model.business.businessdetails import BusinessDetails
-from yelpfusion3.model.business.businessmatches import BusinessMatches
-from yelpfusion3.model.business.businesssearch import BusinessSearch
-from yelpfusion3.model.business.phonesearch import PhoneSearch
-from yelpfusion3.model.business.reviews import Reviews
-from yelpfusion3.model.business.transactionsearch import TransactionSearch
 
 
 @pytest.mark.skipif(

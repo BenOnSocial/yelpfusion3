@@ -11,9 +11,7 @@ Indices and tables
    :hidden:
    :caption: API Reference
 
-   api/client
-   api/endpoint
-   api/model
+   api/index
 
 .. toctree::
    :hidden:

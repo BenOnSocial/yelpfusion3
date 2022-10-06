@@ -4,25 +4,28 @@ from typing import Optional
 
 from pydantic import constr
 
-from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
-from yelpfusion3.endpoint.businessmatchesendpoint import BusinessMatchesEndpoint
-from yelpfusion3.endpoint.businesssearchendpoint import BusinessSearchEndpoint
-from yelpfusion3.endpoint.phonesearchendpoint import PhoneSearchEndpoint
-from yelpfusion3.endpoint.reviewsendpoint import ReviewsEndpoint
-from yelpfusion3.endpoint.transactionsearchendpoint import TransactionSearchEndpoint
+from yelpfusion3.business.endpoint import (
+    BusinessDetailsEndpoint,
+    BusinessMatchesEndpoint,
+    BusinessSearchEndpoint,
+    PhoneSearchEndpoint,
+    ReviewsEndpoint,
+    TransactionSearchEndpoint,
+)
 
 
 class Client:
     """
-    Client is a collection of factory methods that create Endpoint objects used to interact with Yelp Fusion endpoints.
-    Function parameters provide guidance on which endpoint parameters are required. Optional parameters can be added
-    to the instantiated object by setting their respective fields.
+    Client is a collection of factory methods that create :py:class:`~yelpfusion3.endpoint.Endpoint` objects used to
+    interact with Yelp Fusion endpoints. Function parameters provide guidance on which endpoint parameters are required.
+    Optional parameters can be added to the instantiated object by setting their respective fields.
     """
 
     @staticmethod
     def business_details(business_id: str) -> BusinessDetailsEndpoint:
         """
-        Creates a new BusinessDetailsEndpoint object used to interact with the Yelp Business Details REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessDetailsEndpoint` object used to interact with
+        the Yelp Business Details REST endpoint.
 
         :param business_id: Unique Yelp ID of the business to query for.
         :type business_id: str
@@ -41,7 +44,8 @@ class Client:
         country: constr(min_length=2, max_length=2, to_upper=True),  # type: ignore
     ) -> BusinessMatchesEndpoint:
         """
-        Creates a new BusinessMatchesEndpoint object used to interact with the Yelp Business Matches REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessMatchesEndpoint` object used to interact with
+        the Yelp Business Matches REST endpoint.
 
         :param name: The name of the business. Maximum length is 64; only digits, letters, spaces, and
             ``!#$%&+,­./:?@'`` are allowed.
@@ -76,7 +80,8 @@ class Client:
         longitude: Optional[float] = None,
     ) -> BusinessSearchEndpoint:
         """
-        Creates a new BusinessSearchEndpoint object used to interact with the Yelp Business Search REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessSearchEndpoint` object used to interact with the
+        Yelp Business Search REST endpoint.
 
         :param location: This string indicates the geographic area to be used when searching for businesses.
             Examples: ``New York City``, ``NYC``, ``350 5th Ave, New York, NY 10118``. (Required if either ``latitude``
@@ -101,7 +106,8 @@ class Client:
     @staticmethod
     def phone_search(phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")) -> PhoneSearchEndpoint:  # type: ignore
         """
-        Creates a new PhoneSearchEndpoint object used to interact with the Yelp Phone Search REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.PhoneSearchEndpoint` object used to interact with the
+        Yelp Phone Search REST endpoint.
 
         :param phone: Phone number of the business you want to search for. It must start with + and include the country
             code, like ``+14159083801``.
@@ -115,7 +121,8 @@ class Client:
     @staticmethod
     def reviews(business_id: str) -> ReviewsEndpoint:
         """
-        Creates a new ReviewsEndpoint object used to interact with the Yelp Reviews REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.ReviewsEndpoint` object used to interact with the Yelp
+        Reviews REST endpoint.
 
         :param business_id: Unique Yelp ID of the business to query for.
         :type business_id: str
@@ -131,11 +138,12 @@ class Client:
         longitude: Optional[float] = None,
     ) -> TransactionSearchEndpoint:
         """
-        Creates a new TransactionSearchEndpoint object used to interact with the Yelp Transaction Search REST endpoint.
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.TransactionSearchEndpoint` object used to interact with
+        the Yelp Transaction Search REST endpoint.
 
         :param location: This string indicates the geographic area to be used when searching for businesses.
-            Examples: ``New York City``, ``NYC``, ``350 5th Ave, New York, NY 10118``. (Required if either ``latitude`` or
-            ``longitude`` is not provided.)
+            Examples: ``New York City``, ``NYC``, ``350 5th Ave, New York, NY 10118``. (Required if either ``latitude``
+            or ``longitude`` is not provided.)
         :type location: str
         :param latitude: Latitude of the location you want to search nearby. (Required if ``location`` is not provided.)
         :type latitude: float
