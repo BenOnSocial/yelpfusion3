@@ -5,8 +5,9 @@ count = True
 disable-noqa = False
 doctests = True
 filename =
-    tests,
+    docs/source/conf.py,
     src/yelpfusion3,
+    tests,
 max-complexity = 4
 max-line-length = 120
 statistics = True

@@ -80,9 +80,9 @@ check = [
     "python -m flake8",
 ]
 format = [
-    "python -m autoflake --in-place --recursive src/yelpfusion3 tests",
-    "python -m isort --atomic src/yelpfusion3 tests",
-    "python -m black src/yelpfusion3 tests",
+    "python -m autoflake --in-place --recursive docs/source/conf.py src/yelpfusion3 tests",
+    "python -m isort --atomic docs/source/conf.py src/yelpfusion3 tests",
+    "python -m black docs/source/conf.py src/yelpfusion3 tests",
     "check",
 ]
 
