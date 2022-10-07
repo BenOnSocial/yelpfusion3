@@ -170,9 +170,11 @@ line_length = 120
 
 [tool.mypy]
 python_version = 3.9
+disable_error_code = "valid-type"
 disallow_untyped_defs = true
 ignore_missing_imports = true
 pretty = true
+show_error_codes = true
 strict_optional = false
 warn_return_any = true
 warn_unused_configs = true
