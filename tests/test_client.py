@@ -3,6 +3,7 @@ import os
 import pytest
 
 from yelpfusion3.business.endpoint import (
+    AutocompleteEndpoint,
     BusinessDetailsEndpoint,
     BusinessMatchesEndpoint,
     BusinessSearchEndpoint,
@@ -11,6 +12,7 @@ from yelpfusion3.business.endpoint import (
     TransactionSearchEndpoint,
 )
 from yelpfusion3.business.model import (
+    Autocomplete,
     BusinessDetails,
     BusinessMatches,
     BusinessSearch,
@@ -184,3 +186,40 @@ class TestClient:
     def test_transaction_search_missing_latitude_raises_error(self) -> None:
         with pytest.raises(ValueError):
             Client.transaction_search(longitude=-122.0306396484375)
+
+    def test_autocomplete_text(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = Client.autocomplete(text="del")
+
+        autocomplete: Autocomplete = autocomplete_endpoint.get()
+
+        assert len(autocomplete.categories) > 0
+        assert not autocomplete.businesses
+        assert len(autocomplete.terms) > 0
+        assert all(
+            "del" in category.alias.lower() for category in autocomplete.categories
+        )
+        assert all(
+            "del" in category.title.lower() for category in autocomplete.categories
+        )
+        assert all("del" in term.text.lower() for term in autocomplete.terms)
+
+    def test_autocomplete_text_latitude_longitude(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = Client.autocomplete(
+            text="del", latitude=37.786942, longitude=-122.399643
+        )
+
+        autocomplete: Autocomplete = autocomplete_endpoint.get()
+
+        assert len(autocomplete.categories) > 0
+        assert len(autocomplete.businesses) > 0
+        assert len(autocomplete.terms) > 0
+        assert all(
+            "del" in category.alias.lower() for category in autocomplete.categories
+        )
+        assert all(
+            "del" in category.title.lower() for category in autocomplete.categories
+        )
+        assert all(
+            "del" in business.name.lower() for business in autocomplete.businesses
+        )
+        assert all("del" in term.text.lower() for term in autocomplete.terms)

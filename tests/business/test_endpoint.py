@@ -1,6 +1,7 @@
 import pytest
 
 from yelpfusion3.business.endpoint import (
+    AutocompleteEndpoint,
     BusinessDetailsEndpoint,
     BusinessMatchesEndpoint,
     BusinessSearchEndpoint,
@@ -390,3 +391,55 @@ class TestTransactionSearchEndpoint:
     def test_longitude_fails_validation(self, longitude: float) -> None:
         with pytest.raises(ValueError):
             TransactionSearchEndpoint(latitude=37.80587, longitude=longitude)
+
+
+class TestAutocompleteEndpoint:
+    def test_url(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
+            text="coffee"
+        )
+
+        assert (
+            autocomplete_endpoint.url
+            == "https://api.yelp.com/v3/autocomplete?text=coffee"
+        )
+
+    def test_url_locale(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
+            text="coffee", locale="fr_FR"
+        )
+
+        assert (
+            autocomplete_endpoint.url
+            == "https://api.yelp.com/v3/autocomplete?text=coffee&locale=fr_FR"
+        )
+
+    def test_url_latitude_longitude(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
+            text="coffee", latitude=37.80587, longitude=-122.42058
+        )
+
+        assert (
+            autocomplete_endpoint.url
+            == "https://api.yelp.com/v3/autocomplete?text=coffee&latitude=37.80587&longitude=-122.42058"
+        )
+
+    def test_url_latitude_longitude_locale(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
+            text="coffee", latitude=37.80587, longitude=-122.42058, locale="fr_FR"
+        )
+
+        assert (
+            autocomplete_endpoint.url
+            == "https://api.yelp.com/v3/autocomplete?text=coffee&latitude=37.80587&longitude=-122.42058&locale=fr_FR"
+        )
+
+    @pytest.mark.parametrize("latitude", [-91.0, 92.0])
+    def test_latitude_fails_validation(self, latitude: float) -> None:
+        with pytest.raises(ValueError):
+            AutocompleteEndpoint(latitude=latitude, longitude=-122.42058)
+
+    @pytest.mark.parametrize("longitude", [-181.0, 182.0])
+    def test_longitude_fails_validation(self, longitude: float) -> None:
+        with pytest.raises(ValueError):
+            AutocompleteEndpoint(latitude=37.80587, longitude=longitude)

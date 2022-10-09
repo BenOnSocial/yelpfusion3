@@ -7,6 +7,7 @@ from pydantic import confloat, conint, constr, validator
 from requests import Response
 
 from yelpfusion3.business.model import (
+    Autocomplete,
     BusinessDetails,
     BusinessMatches,
     BusinessSearch,
@@ -772,3 +773,39 @@ class TransactionSearchEndpoint(Endpoint):
     def get(self) -> TransactionSearch:
         response: Response = self._get()
         return TransactionSearch(**response.json())
+
+
+class AutocompleteEndpoint(Endpoint):
+    """
+    This endpoint returns autocomplete suggestions for search keywords, businesses and categories, based on the input
+    text.
+    """
+
+    _path = "/autocomplete"
+
+    text: constr(strip_whitespace=True, min_length=1)
+    """
+    Required. Text to return autocomplete suggestions for.
+    """
+
+    latitude: Optional[confloat(ge=-90.0, le=90.0)]
+    """
+    Required if want to get autocomplete suggestions for businesses. Latitude of the location to look for business
+    autocomplete suggestions.
+    """
+
+    longitude: Optional[confloat(ge=-180.0, le=180.0)]
+    """
+    Required if want to get autocomplete suggestions for businesses. Longitude of the location to look for business
+    autocomplete suggestions.
+    """
+
+    locale: Optional[str]
+    """
+    Optional. Specify the locale to return the autocomplete suggestions in. See the list of supported locales. Defaults
+    to ``en_US``.
+    """
+
+    def get(self) -> Autocomplete:
+        response: Response = self._get()
+        return Autocomplete(**response.json())

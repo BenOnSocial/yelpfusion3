@@ -4,6 +4,7 @@ from typing import Dict, List, Union
 import pytest
 
 from yelpfusion3.business.model import (
+    Autocomplete,
     Business,
     BusinessDetails,
     BusinessSearch,
@@ -540,3 +541,36 @@ class TestSpecialHours:
 
         with pytest.raises(ValueError):
             SpecialHours(**test_special_hours)
+
+
+class TestAutocomplete:
+    test_data: Dict = {
+        "terms": [{"text": "Delivery"}],
+        "businesses": [
+            {"name": "Delfina", "id": "YqvoyaNvtoC8N5dA8pD2JA"},
+            {"name": "Pizzeria Delfina", "id": "bai6umLcCNy9cXql0Js2RQ"},
+        ],
+        "categories": [
+            {"alias": "delis", "title": "Delis"},
+            {"alias": "fooddeliveryservices", "title": "Food Delivery Services"},
+            {"alias": "couriers", "title": "Couriers & Delivery Services"},
+        ],
+    }
+
+    def test_deserialize(self) -> None:
+        autocomplete = Autocomplete(**self.test_data)
+
+        assert len(autocomplete.terms) == 1
+        assert autocomplete.terms[0].text == "Delivery"
+        assert len(autocomplete.businesses) == 2
+        assert autocomplete.businesses[0].name == "Delfina"
+        assert autocomplete.businesses[0].id == "YqvoyaNvtoC8N5dA8pD2JA"
+        assert autocomplete.businesses[1].name == "Pizzeria Delfina"
+        assert autocomplete.businesses[1].id == "bai6umLcCNy9cXql0Js2RQ"
+        assert len(autocomplete.categories) == 3
+        assert autocomplete.categories[0].alias == "delis"
+        assert autocomplete.categories[0].title == "Delis"
+        assert autocomplete.categories[1].alias == "fooddeliveryservices"
+        assert autocomplete.categories[1].title == "Food Delivery Services"
+        assert autocomplete.categories[2].alias == "couriers"
+        assert autocomplete.categories[2].title == "Couriers & Delivery Services"

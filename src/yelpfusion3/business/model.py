@@ -684,3 +684,51 @@ class TransactionSearch(Model):
     """
     A list of business Yelp finds based on the search criteria.
     """
+
+
+class Term(Model):
+    """
+    A term autocomplete suggestion.
+    """
+
+    text: constr(strip_whitespace=True, min_length=1)
+    """
+    The text content of the term autocomplete suggestion.
+    """
+
+
+class BusinessSuggestion(Model):
+    """
+    An autocomplete suggestion for a business.
+    """
+
+    name: constr(strip_whitespace=True, min_length=1)
+    """
+    Name of the business.
+    """
+
+    id: constr(strip_whitespace=True, min_length=1)
+    """
+    Yelp ID of the business.
+    """
+
+
+class Autocomplete(Model):
+    """
+    Autocomplete suggestions based on input text.
+    """
+
+    terms: List[Term]
+    """
+    A list of term autocomplete suggestions based on the input text.
+    """
+
+    businesses: List[BusinessSuggestion]
+    """
+    A list of business autocomplete suggestions based on the input text.
+    """
+
+    categories: List[Category]
+    """
+    A list of category autocomplete suggestions based on the input text.
+    """

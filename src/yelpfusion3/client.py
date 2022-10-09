@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import constr
+from pydantic import confloat, constr
 
 from yelpfusion3.business.endpoint import (
+    AutocompleteEndpoint,
     BusinessDetailsEndpoint,
     BusinessMatchesEndpoint,
     BusinessSearchEndpoint,
@@ -22,7 +23,11 @@ class Client:
     """
 
     @staticmethod
-    def business_details(business_id: str) -> BusinessDetailsEndpoint:
+    def business_details(
+        business_id: constr(
+            min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True
+        )
+    ) -> BusinessDetailsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessDetailsEndpoint` object used to interact with
         the Yelp Business Details REST endpoint.
@@ -37,11 +42,13 @@ class Client:
 
     @staticmethod
     def business_matches(
-        name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"),  # type: ignore
-        address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$"),  # type: ignore
-        city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$"),  # type: ignore
-        state: constr(min_length=2, max_length=3, to_upper=True),  # type: ignore
-        country: constr(min_length=2, max_length=2, to_upper=True),  # type: ignore
+        name: constr(
+            min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"
+        ),
+        address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$"),
+        city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$"),
+        state: constr(min_length=2, max_length=3, to_upper=True),
+        country: constr(min_length=2, max_length=2, to_upper=True),
     ) -> BusinessMatchesEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessMatchesEndpoint` object used to interact with
@@ -75,9 +82,9 @@ class Client:
 
     @staticmethod
     def business_search(
-        location: Optional[str] = None,
-        latitude: Optional[float] = None,
-        longitude: Optional[float] = None,
+        location: Optional[constr(min_length=1, strip_whitespace=True)] = None,
+        latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
+        longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> BusinessSearchEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessSearchEndpoint` object used to interact with the
@@ -104,7 +111,9 @@ class Client:
             raise ValueError("Missing required argument(s).")
 
     @staticmethod
-    def phone_search(phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")) -> PhoneSearchEndpoint:  # type: ignore
+    def phone_search(
+        phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")
+    ) -> PhoneSearchEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.PhoneSearchEndpoint` object used to interact with the
         Yelp Phone Search REST endpoint.
@@ -119,7 +128,11 @@ class Client:
         return PhoneSearchEndpoint(phone=phone)
 
     @staticmethod
-    def reviews(business_id: str) -> ReviewsEndpoint:
+    def reviews(
+        business_id: constr(
+            min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True
+        )
+    ) -> ReviewsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.ReviewsEndpoint` object used to interact with the Yelp
         Reviews REST endpoint.
@@ -133,9 +146,9 @@ class Client:
 
     @staticmethod
     def transaction_search(
-        location: Optional[str] = None,
-        latitude: Optional[float] = None,
-        longitude: Optional[float] = None,
+        location: Optional[constr(min_length=1, strip_whitespace=True)] = None,
+        latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
+        longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> TransactionSearchEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.TransactionSearchEndpoint` object used to interact with
@@ -160,3 +173,16 @@ class Client:
             return TransactionSearchEndpoint(latitude=latitude, longitude=longitude)
         else:
             raise ValueError("Missing required argument(s).")
+
+    @staticmethod
+    def autocomplete(
+        text: constr(strip_whitespace=True, min_length=1),
+        latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
+        longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
+    ) -> AutocompleteEndpoint:
+        if latitude and longitude:
+            return AutocompleteEndpoint(
+                text=text, latitude=latitude, longitude=longitude
+            )
+        else:
+            return AutocompleteEndpoint(text=text)
