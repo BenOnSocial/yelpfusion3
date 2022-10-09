@@ -28,12 +28,12 @@ class Coordinates(Model):
     The coordinates of this business.
     """
 
-    latitude: confloat(ge=-90.0, le=90.0)  # type: ignore
+    latitude: confloat(ge=-90.0, le=90.0)
     """
     The latitude of this business.
     """
 
-    longitude: confloat(ge=-180.0, le=180.0)  # type: ignore
+    longitude: confloat(ge=-180.0, le=180.0)
     """
     The longitude of this business.
     """
@@ -44,17 +44,17 @@ class Location(Model):
     The location of this business, including address, city, state, zip code and country.
     """
 
-    address1: Optional[constr(strip_whitespace=True)] = None  # type: ignore
+    address1: Optional[constr(strip_whitespace=True)] = None
     """
     Street address of this business.
     """
 
-    address2: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
+    address2: Optional[constr(strip_whitespace=True, min_length=0)] = None
     """
     Street address of this business, continued.
     """
 
-    address3: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
+    address3: Optional[constr(strip_whitespace=True, min_length=0)] = None
     """
     Street address of this business, continued.
     """
@@ -85,7 +85,7 @@ class Location(Model):
     business's country.
     """
 
-    cross_streets: Optional[constr(strip_whitespace=True, min_length=0)] = None  # type: ignore
+    cross_streets: Optional[constr(strip_whitespace=True, min_length=0)] = None
     """
     Cross streets for this business. (Only used in business details search results.)
     """
@@ -133,7 +133,7 @@ class Business(Model):
     Distance in meters from the search location. This returns meters regardless of the locale.
     """
 
-    id: str
+    id: constr(strip_whitespace=True, min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -173,7 +173,7 @@ class Business(Model):
     Price level of the business. Value is one of ``$``, ``$$``, ``$$$`` and ``$$$$``.
     """
 
-    rating: confloat(ge=0.0, le=5.0)  # type: ignore
+    rating: confloat(ge=0.0, le=5.0)
     """
     Rating for this business (value ranges from 1, 1.5, ... 4.5, 5).
     """
@@ -373,7 +373,7 @@ class BusinessDetails(Model):
     Detailed information about a business.
     """
 
-    id: str
+    id: constr(strip_whitespace=True, min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -429,7 +429,7 @@ class BusinessDetails(Model):
     A list of category title and alias pairs associated with this business.
     """
 
-    rating: confloat(ge=0.0, le=5.0)  # type: ignore
+    rating: confloat(ge=0.0, le=5.0)
     """
     Rating for this business (value ranges from 1, 1.5, ... 4.5, 5).
     """
@@ -493,7 +493,7 @@ class BusinessMatch(Model):
     A Yelp business matching the inputs.
     """
 
-    id: str
+    id: constr(strip_whitespace=True, min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -547,6 +547,10 @@ class Region(Model):
 
 
 class BusinessSearch(Model):
+    """
+    A list of businesses based on a location search.
+    """
+
     total: int
     """
     Total number of business Yelp finds based on the search criteria. Sometimes, the value may exceed 1000. In such
@@ -587,7 +591,7 @@ class User(Model):
     A user who wrote a review.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)  # type: ignore
+    id: constr(strip_whitespace=True, min_length=1)
     """
     ID of the user.
     """
@@ -597,7 +601,7 @@ class User(Model):
     URL of the user's profile.
     """
 
-    name: constr(strip_whitespace=True, min_length=1)  # type: ignore
+    name: constr(strip_whitespace=True, min_length=1)
     """
     User screen name (first name and first initial of last name).
     """
@@ -613,12 +617,12 @@ class Review(Model):
     A review excerpt for a given business.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)  # type: ignore
+    id: constr(strip_whitespace=True, min_length=1)
     """
     A unique identifier for this review.
     """
 
-    text: constr(strip_whitespace=True, min_length=0)  # type: ignore
+    text: constr(strip_whitespace=True, min_length=0)
     """
     Text excerpt of this review.
     """

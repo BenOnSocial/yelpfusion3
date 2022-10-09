@@ -33,7 +33,7 @@ class BusinessDetailsEndpoint(Endpoint):
 
     _path: str = "/businesses"
 
-    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)  # type: ignore
+    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
     """
     Unique Yelp ID of the business to query for.
     """
@@ -96,57 +96,61 @@ class BusinessMatchesEndpoint(Endpoint):
 
     _path: str = "/businesses/matches"
 
-    name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$")  # type: ignore
+    name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$")
     """
     Required. The name of the business. Maximum length is 64; only digits, letters, spaces, and ``!#$%&+,./:?@'``
     are allowed.
     """
 
-    address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")  # type: ignore
+    address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")
     """
     Required. The first line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
     ``'/#&,.:`` are allowed. The empty string "" is allowed; this will specifically match certain service businesses
     that have no street address.
     """
 
-    address2: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]  # type: ignore
+    address2: Optional[
+        constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")
+    ]
     """
     Optional. The second line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
     ``'/#&,.:`` are allowed.
     """
 
-    address3: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]  # type: ignore
+    address3: Optional[
+        constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")
+    ]
     """
     Optional. The third line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
     ``'/#&,.:`` are allowed.
     """
 
-    city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$")  # type: ignore
+    city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$")
     """
     Required. The city of the business. Maximum length is 64; only digits, letters, spaces, and ``'.()`` are allowed.
     """
 
-    state: constr(min_length=2, max_length=3, to_upper=True)  # type: ignore
+    state: constr(min_length=2, max_length=3, to_upper=True)
     """
     Required. The ISO 3166-2 (with a few exceptions) state code of this business. Maximum length is 3.
     """
 
-    country: constr(min_length=2, max_length=2, to_upper=True)  # type: ignore
+    country: constr(min_length=2, max_length=2, to_upper=True)
     """
     Required. The ISO 3166-1 alpha-2 country code of this business. Maximum length is 2.
     """
 
-    latitude: Optional[confloat(ge=-90.0, le=90.0)]  # type: ignore
+    latitude: Optional[confloat(ge=-90.0, le=90.0)]
     """
     Optional. The WGS84 latitude of the business in decimal degrees. Must be between -90 and +90.
     """
 
-    longitude: Optional[confloat(ge=-180.0, le=180.0)]  # type: ignore
+    longitude: Optional[confloat(ge=-180.0, le=180.0)]
     """
     Optional. The WGS84 longitude of the business in decimal degrees. Must be between -180 and +180.
     """
 
-    phone: Optional[constr(max_length=32, regex=r"^\+?\d+$")]  # type: ignore
+    phone: Optional[constr(max_length=32, regex=r"^\+?\d+$")]
     """
     Optional. The phone number of the business which can be submitted as (a) locally ­formatted with digits only
     (e.g., 016703080) or (b) internationally­ formatted with a leading + sign and digits only after (+35316703080).
@@ -163,7 +167,7 @@ class BusinessMatchesEndpoint(Endpoint):
     Optional. Unique Yelp identifier of the business if available. Used as a hint when finding a matching business.
     """
 
-    limit: Optional[conint(ge=1, le=10)]  # type: ignore
+    limit: Optional[conint(ge=1, le=10)]
     """
     Optional. Maximum number of business results to return. By default, it will return 3. Minimum is 1, maximum is 10.
     """
@@ -213,14 +217,14 @@ class BusinessSearchEndpoint(Endpoint):
 
     _path: str = "/businesses/search"
 
-    term: Optional[constr(min_length=1, strip_whitespace=True)]  # type: ignore
+    term: Optional[constr(min_length=1, strip_whitespace=True)]
     """
     Optional. Search term, for example ``food`` or ``restaurants``. The term may also be business names, such as
     ``Starbucks``. If term is not included the endpoint will default to searching across businesses from a small number
     of popular categories.
     """
 
-    location: Optional[constr(min_length=1, strip_whitespace=True)]  # type: ignore
+    location: Optional[constr(min_length=1, strip_whitespace=True)]
     """
     Required if either ``latitude`` or ``longitude`` is not provided. This string indicates the geographic area to be
     used when searching for businesses. Examples: ``New York City``, ``NYC``, ``350 5th Ave, New York, NY 10118``.
@@ -237,7 +241,7 @@ class BusinessSearchEndpoint(Endpoint):
     Required if ``location`` is not provided. Longitude of the location you want to search nearby.
     """
 
-    radius: Optional[conint(gt=0, lt=40000)]  # type: ignore
+    radius: Optional[conint(gt=0, lt=40000)]
     """
     Optional. A suggested search radius in meters. This field is used as a suggestion to the search. The actual search
     radius may be lower than the suggested radius in dense urban areas, and higher in regions of less business density.
@@ -258,12 +262,12 @@ class BusinessSearchEndpoint(Endpoint):
     Defaults to ``en_US``.
     """
 
-    limit: Optional[conint(gt=0, lt=50)]  # type: ignore
+    limit: Optional[conint(gt=0, lt=50)]
     """
     Optional. Number of business results to return. By default, it will return 20. Maximum is 50.
     """
 
-    offset: Optional[conint(gt=0)]  # type: ignore
+    offset: Optional[conint(gt=0)]
     """
     Optional. Offset the list of returned business results by this amount.
     """
@@ -291,7 +295,7 @@ class BusinessSearchEndpoint(Endpoint):
     ``open_now`` cannot be used together.
     """
 
-    open_at: Optional[conint(gt=0)]  # type: ignore
+    open_at: Optional[conint(gt=0)]
     """
     Optional. An integer representing the Unix time in the same timezone of the search location. If specified, it will
     return business open at the given time. Notice that ``open_at`` and ``open_now`` cannot be used together.
@@ -417,7 +421,7 @@ class PhoneSearchEndpoint(Endpoint):
 
     _path: str = "/businesses/search/phone"
 
-    phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")  # type: ignore
+    phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")
     """
     Required. Phone number of the business you want to search for. It must start with + and include the country code,
     like ``+14159083801``.
@@ -459,7 +463,7 @@ class ReviewsEndpoint(Endpoint):
 
     _path: str = "/businesses/{business_id}/reviews"
 
-    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)  # type: ignore
+    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
     """
     Unique Yelp ID of the business to query for.
     """
@@ -522,17 +526,17 @@ class TransactionSearchEndpoint(Endpoint):
 
     _path = "/transactions/delivery/search"
 
-    latitude: Optional[confloat(ge=-90.0, le=90.0)]  # type: ignore
+    latitude: Optional[confloat(ge=-90.0, le=90.0)]
     """
     Required when ``location`` isn't provided. Latitude of the location you want to deliver to.
     """
 
-    longitude: Optional[confloat(ge=-180.0, le=180.0)]  # type: ignore
+    longitude: Optional[confloat(ge=-180.0, le=180.0)]
     """
     Required when ``location`` isn't provided. Longitude of the location you want to deliver to.
     """
 
-    location: Optional[constr(min_length=1, strip_whitespace=True)]  # type: ignore
+    location: Optional[constr(min_length=1, strip_whitespace=True)]
     """
     Required when ``latitude`` and ``longitude`` aren't provided. Address of the location you want to deliver to.
     """
