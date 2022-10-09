@@ -18,7 +18,7 @@ class TestBusinessDetailsEndpoint:
             "gary-danko-san-francisco",
         ],
     )
-    def test_url_build(self, business_id: str) -> None:
+    def test_url(self, business_id: str) -> None:
         business_details_endpoint: BusinessDetailsEndpoint = BusinessDetailsEndpoint(
             business_id=business_id
         )
@@ -77,7 +77,7 @@ class TestBusinessDetailsEndpoint:
 
 
 class TestBusinessMatchesEndpoint:
-    def test_url_build(self) -> None:
+    def test_url(self) -> None:
         business_matches_endpoint: BusinessMatchesEndpoint = BusinessMatchesEndpoint(
             name="Gary Danko",
             address1="800 N Point St",
@@ -88,7 +88,7 @@ class TestBusinessMatchesEndpoint:
 
         assert (
             business_matches_endpoint.url
-            == "https://api.yelp.com/v3/businesses/matches?name=Gary+Danko&address1=800+N+Point+St&city=San+Francisco&state=CA&country=US"
+            == "https://api.yelp.com/v3/businesses/matches?name=Gary%20Danko&address1=800%20N%20Point%20St&city=San%20Francisco&state=CA&country=US"
         )
 
     def test_country_init_fails_validation(self) -> None:
@@ -115,7 +115,7 @@ class TestBusinessMatchesEndpoint:
 
 
 class TestBusinessSearchEndpoint:
-    def test_url_build(self) -> None:
+    def test_url(self) -> None:
         business_search_endpoint: BusinessSearchEndpoint = BusinessSearchEndpoint(
             term="coffee",
             location="san francisco",
@@ -126,7 +126,7 @@ class TestBusinessSearchEndpoint:
 
         assert (
             business_search_endpoint.url
-            == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san+francisco&radius=25&limit=20&price=1%2C2"
+            == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san%20francisco&radius=25&limit=20&price=1%2C2"
         )
 
     def test_unsupported_fields_ignored(self) -> None:
@@ -144,7 +144,7 @@ class TestBusinessSearchEndpoint:
         ]
         assert (
             business_search_endpoint.url
-            == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san+francisco&radius=25&limit=20&price=1%2C2"
+            == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san%20francisco&radius=25&limit=20&price=1%2C2"
         )
 
     @pytest.mark.parametrize("latitude", [-90, 0, 90])
@@ -257,7 +257,7 @@ class TestBusinessSearchEndpoint:
 
 
 class TestPhoneSearchEndpoint:
-    def test_url_build(self) -> None:
+    def test_url(self) -> None:
         phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(
             phone="+14159083801"
         )
@@ -293,7 +293,7 @@ class TestPhoneSearchEndpoint:
 
 
 class TestReviewsEndpoint:
-    def test_url_build(self) -> None:
+    def test_url(self) -> None:
         reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(
             business_id="WavvLdfdP6g8aZTtbBQHTw"
         )
@@ -324,17 +324,17 @@ class TestReviewsEndpoint:
 
 
 class TestTransactionSearchEndpoint:
-    def test_url_location_build(self) -> None:
+    def test_url_location(self) -> None:
         transaction_search_endpoint: TransactionSearchEndpoint = (
             TransactionSearchEndpoint(location="800 N Point St San Francisco CA")
         )
 
         assert (
             transaction_search_endpoint.url
-            == "https://api.yelp.com/v3/transactions/delivery/search?location=800+N+Point+St+San+Francisco+CA"
+            == "https://api.yelp.com/v3/transactions/delivery/search?location=800%20N%20Point%20St%20San%20Francisco%20CA"
         )
 
-    def test_url_latitude_longitude_build(self) -> None:
+    def test_url_latitude_longitude(self) -> None:
         transaction_search_endpoint: TransactionSearchEndpoint = (
             TransactionSearchEndpoint(latitude=37.80587, longitude=-122.42058)
         )
