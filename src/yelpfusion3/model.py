@@ -9,9 +9,9 @@ class Model(BaseModel):
     Basic base class for all model implementations.
     """
 
-    class Config:
+    class Config:   # pragma: no cover
         anystr_strip_whitespace = True
-        min_anystr_length = 1
+        min_anystr_length = 0
         validate_assignment = True
 
 
@@ -40,7 +40,7 @@ class Location(Model):
     City of this business or event.
     """
 
-    state: str
+    state: constr(to_upper=True, min_length=2, max_length=3)
     """
     ISO 3166-2 (with a few exceptions) state code of this business or event.
     """
@@ -50,7 +50,7 @@ class Location(Model):
     Zip code of this business or event.
     """
 
-    country: str
+    country: constr(to_upper=True, min_length=2, max_length=3)
     """
     ISO 3166-1 alpha-2 country code of this business or event.
     """
