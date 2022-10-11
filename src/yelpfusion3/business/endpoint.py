@@ -215,12 +215,12 @@ class BusinessSearchEndpoint(Endpoint):
     Businesses returned in the response may not be strictly within the specified location.
     """
 
-    latitude: Optional[float]
+    latitude: Optional[confloat(ge=-90.0, le=90.0)]
     """
     Required if ``location`` is not provided. Latitude of the location you want to search nearby.
     """
 
-    longitude: Optional[float]
+    longitude: Optional[confloat(ge=-180.0, le=180.0)]
     """
     Required if ``location`` is not provided. Longitude of the location you want to search nearby.
     """
@@ -314,36 +314,6 @@ class BusinessSearchEndpoint(Endpoint):
     def get(self) -> BusinessSearch:
         response: Response = self._get()
         return BusinessSearch(**response.json())
-
-    @validator("latitude")
-    def _check_latitude(cls, v: float) -> float:
-        """
-        Validates that the ``latitude`` value is within [-90.0, 90.0].
-
-        :param v: Latitude value corresponding to the center of the search location.
-        :type v: float
-        :raises ValueError: If ``latitude`` is outside of the accepted range of [-90.0, 90.0].
-        :return: ``v`` if it's within the accepted range.
-        :rtype: float
-        """
-        if validators.between(value=v, min=-90.0, max=90.0):
-            return v
-        raise ValueError("'latitude' outside of acceptable range of [-90.0, 90].")
-
-    @validator("longitude")
-    def _check_longitude(cls, v: float) -> float:
-        """
-        Validates that the ``longitude`` value is within [-180.0, 180.0].
-
-        :param v: Longitude value corresponding to the center of the search location.
-        :type v: float
-        :raises ValueError: If ``longitude`` is outside of the accepted range of [-180.0, 180.0].
-        :return: ``v`` if it's within the accepted range.
-        :rtype: float
-        """
-        if validators.between(value=v, min=-180.0, max=180.0):
-            return v
-        raise ValueError("'longitude' outside of acceptable range of [-180.0, 180.0].")
 
     @validator("price")
     def _check_price(cls, v: str) -> str:
