@@ -7,45 +7,8 @@ from yelpfusion3.business.endpoint import (
     BusinessSearchEndpoint,
     PhoneSearchEndpoint,
     ReviewsEndpoint,
-    SupportedLocales,
     TransactionSearchEndpoint,
 )
-
-
-class TestSupportedLocales:
-    @pytest.mark.parametrize(
-        "code, country, language",
-        [
-            ("cs_CZ", "Czech Republic", "Czech"),
-            ("de_DE", "Germany", "German"),
-            ("en_GB", "United Kingdom", "English"),
-            ("en_US", "United States", "English"),
-            ("it_IT", "Italy", "Italian"),
-            ("zh_TW", "Taiwan", "Chinese"),
-        ],
-    )
-    def test_supported_locales(self, code: str, country: str, language: str) -> None:
-        for locale in SupportedLocales.locales:
-            if locale["code"] == code:
-                assert locale["country"] == country
-                assert locale["language"] == language
-                return
-
-        assert False
-
-    @pytest.mark.parametrize(
-        "code",
-        [
-            "cs_CZ",
-            "de_DE",
-            "en_GB",
-            "en_US",
-            "it_IT",
-            "zh_TW",
-        ],
-    )
-    def test_codes(self, code: str) -> None:
-        assert code in SupportedLocales.codes()
 
 
 class TestBusinessDetailsEndpoint:
@@ -433,6 +396,14 @@ class TestAutocompleteEndpoint:
             autocomplete_endpoint.url
             == "https://api.yelp.com/v3/autocomplete?text=coffee&latitude=37.80587&longitude=-122.42058&locale=fr_FR"
         )
+
+    def test_locale_fails_validation(self) -> None:
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
+            text="coffee", latitude=37.80587, longitude=-122.42058
+        )
+
+        with pytest.raises(ValueError):
+            autocomplete_endpoint.locale = "zz_ZZ"
 
     @pytest.mark.parametrize("latitude", [-91.0, 92.0])
     def test_latitude_fails_validation(self, latitude: float) -> None:
