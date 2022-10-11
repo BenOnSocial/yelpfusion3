@@ -264,7 +264,9 @@ class Endpoint(BaseModel):
         }
         parameters = urlencode(query=non_none_fields, quote_via=quote)
         settings = Settings()
-        return f"{settings.base_url}{self._path}?{parameters}"
+        if parameters:
+            return f"{settings.base_url}{self._path}?{parameters}"
+        return f"{settings.base_url}{self._path}"
 
     @abstractmethod
     def get(self) -> Model:
