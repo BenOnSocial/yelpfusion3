@@ -11,7 +11,7 @@ from yelpfusion3.event.model import EventSearch
 class SupportedCategories:
     """
     A collection of categories supported by the Yelp Fusion API's Event Search endpoint.
-    See https://www.yelp.com/developers/documentation/v3/event_categories_list
+    See `Supported Categories <https://www.yelp.com/developers/documentation/v3/event_categories_list>`_
     """
 
     categories: Dict = {
