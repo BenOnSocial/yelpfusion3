@@ -13,6 +13,21 @@ Models
 .. automodule:: yelpfusion3.business.model
    :members:
 
+Event Endpoints
+===============
+
+Endpoints
+---------
+
+.. automodule:: yelpfusion3.event.endpoint
+   :members:
+
+Models
+------
+
+.. automodule:: yelpfusion3.event.model
+   :members:
+
 Client
 ======
 
