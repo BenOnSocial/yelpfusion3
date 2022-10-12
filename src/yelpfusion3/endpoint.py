@@ -275,7 +275,7 @@ class Endpoint(BaseModel):
     def _get(self) -> Response:
         return requests.get(url=self.url, headers=Settings().headers)
 
-    @validator("locale", check_fields=False)  # ("locale")
+    @validator("locale", check_fields=False)
     def _check_locale(cls, v: str) -> str:
         """
         Validates that the locale is supported by Yelp Fusion API 3.
