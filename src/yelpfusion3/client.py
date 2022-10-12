@@ -13,6 +13,7 @@ from yelpfusion3.business.endpoint import (
     ReviewsEndpoint,
     TransactionSearchEndpoint,
 )
+from yelpfusion3.event.endpoint import EventSearchEndpoint
 
 
 class Client:
@@ -186,3 +187,14 @@ class Client:
             )
         else:
             return AutocompleteEndpoint(text=text)
+
+    @staticmethod
+    def event_search() -> EventSearchEndpoint:
+        """
+        Creates a new :py:class:`~yelpfusion3.event.endpoint.EventSearchEndpoint` object used to interact with the Yelp
+        Event Search REST endpoint.
+
+        :return: An endpoint wrapper for the Yelp Event Search REST endpoint.
+        :rtype: EventSearchEndpoint
+        """
+        return EventSearchEndpoint()
