@@ -40,7 +40,7 @@ class Event(Model):
     Yelp page of this event.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     Event id.
     """
@@ -80,7 +80,7 @@ class Event(Model):
     Longitude of this event.
     """
 
-    name: constr(strip_whitespace=True, min_length=1)
+    name: constr(min_length=1)
     """
     Name of this event.
     """
@@ -105,7 +105,7 @@ class Event(Model):
     Location object of the event. Includes address, city, state, zip code and country.
     """
 
-    business_id: Optional[constr(strip_whitespace=True, min_length=1)] = None
+    business_id: Optional[constr(min_length=1)] = None
     """
     Yelp Business ID of this event. No ID is returned if a business is not associated with an event.
     """

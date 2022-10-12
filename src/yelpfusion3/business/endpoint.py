@@ -33,7 +33,7 @@ class BusinessDetailsEndpoint(Endpoint):
 
     _path: str = "/businesses"
 
-    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
+    business_id: constr(regex=r"^[A-Za-z0-9\-]+$")
     """
     Unique Yelp ID of the business to query for.
     """
@@ -201,14 +201,14 @@ class BusinessSearchEndpoint(Endpoint):
 
     _path: str = "/businesses/search"
 
-    term: Optional[constr(min_length=1, strip_whitespace=True)]
+    term: Optional[constr(min_length=1)]
     """
     Optional. Search term, for example ``food`` or ``restaurants``. The term may also be business names, such as
     ``Starbucks``. If term is not included the endpoint will default to searching across businesses from a small number
     of popular categories.
     """
 
-    location: Optional[constr(min_length=1, strip_whitespace=True)]
+    location: Optional[constr(min_length=1)]
     """
     Required if either ``latitude`` or ``longitude`` is not provided. This string indicates the geographic area to be
     used when searching for businesses. Examples: ``New York City``, ``NYC``, ``350 5th Ave, New York, NY 10118``.
@@ -359,7 +359,7 @@ class PhoneSearchEndpoint(Endpoint):
 
     _path: str = "/businesses/search/phone"
 
-    phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")
+    phone: constr(min_length=12, regex=r"^\+\d+")
     """
     Required. Phone number of the business you want to search for. It must start with + and include the country code,
     like ``+14159083801``.
@@ -385,7 +385,7 @@ class ReviewsEndpoint(Endpoint):
 
     _path: str = "/businesses/{business_id}/reviews"
 
-    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
+    business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$")
     """
     Unique Yelp ID of the business to query for.
     """
@@ -442,7 +442,7 @@ class TransactionSearchEndpoint(Endpoint):
     Required when ``location`` isn't provided. Longitude of the location you want to deliver to.
     """
 
-    location: Optional[constr(min_length=1, strip_whitespace=True)]
+    location: Optional[constr(min_length=1)]
     """
     Required when ``latitude`` and ``longitude`` aren't provided. Address of the location you want to deliver to.
     """
@@ -460,7 +460,7 @@ class AutocompleteEndpoint(Endpoint):
 
     _path = "/autocomplete"
 
-    text: constr(strip_whitespace=True, min_length=1)
+    text: constr(min_length=1)
     """
     Required. Text to return autocomplete suggestions for.
     """

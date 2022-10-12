@@ -20,17 +20,17 @@ class Location(Model):
     The location of a business or event, including address, city, state, zip code and country.
     """
 
-    address1: Optional[constr(strip_whitespace=True)] = None
+    address1: Optional[str] = None
     """
     Street address of this business or event.
     """
 
-    address2: Optional[constr(strip_whitespace=True, min_length=0)] = None
+    address2: Optional[str] = None
     """
     Street address of this business or event, continued.
     """
 
-    address3: Optional[constr(strip_whitespace=True, min_length=0)] = None
+    address3: Optional[str] = None
     """
     Street address of this business or event, continued.
     """
@@ -61,7 +61,7 @@ class Location(Model):
     business or event's country.
     """
 
-    cross_streets: Optional[constr(strip_whitespace=True, min_length=0)] = None
+    cross_streets: Optional[str] = None
     """
     Cross streets for this business or event. (Only used in business or event details search results.)
     """

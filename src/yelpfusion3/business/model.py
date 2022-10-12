@@ -64,7 +64,7 @@ class Business(Model):
     Distance in meters from the search location. This returns meters regardless of the locale.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -304,7 +304,7 @@ class BusinessDetails(Model):
     Detailed information about a business.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -424,7 +424,7 @@ class BusinessMatch(Model):
     A Yelp business matching the inputs.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     Unique Yelp ID of this business. Example: ``4kMBvIEWPxWkWKFN__8SxQ``
     """
@@ -522,7 +522,7 @@ class User(Model):
     A user who wrote a review.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     ID of the user.
     """
@@ -532,7 +532,7 @@ class User(Model):
     URL of the user's profile.
     """
 
-    name: constr(strip_whitespace=True, min_length=1)
+    name: constr(min_length=1)
     """
     User screen name (first name and first initial of last name).
     """
@@ -548,12 +548,12 @@ class Review(Model):
     A review excerpt for a given business.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     A unique identifier for this review.
     """
 
-    text: constr(strip_whitespace=True, min_length=0)
+    text: str
     """
     Text excerpt of this review.
     """
@@ -622,7 +622,7 @@ class Term(Model):
     A term autocomplete suggestion.
     """
 
-    text: constr(strip_whitespace=True, min_length=1)
+    text: constr(min_length=1)
     """
     The text content of the term autocomplete suggestion.
     """
@@ -633,12 +633,12 @@ class BusinessSuggestion(Model):
     An autocomplete suggestion for a business.
     """
 
-    name: constr(strip_whitespace=True, min_length=1)
+    name: constr(min_length=1)
     """
     Name of the business.
     """
 
-    id: constr(strip_whitespace=True, min_length=1)
+    id: constr(min_length=1)
     """
     Yelp ID of the business.
     """

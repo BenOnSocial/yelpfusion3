@@ -91,7 +91,7 @@ class EventSearchEndpoint(Endpoint):
     range ``-2208960000`` <= ``end_date`` <= ``221845420800``.
     """
 
-    categories: Optional[constr(strip_whitespace=True, to_lower=True)] = None
+    categories: Optional[constr(to_lower=True)] = None
     """
     Optional. The category filter can be a list of comma delimited categories to get OR'd results that include the
     categories provided. See :py:class:`~yelpfusion3.event.endpoint.SupportedCategories`.
@@ -103,7 +103,7 @@ class EventSearchEndpoint(Endpoint):
     will be returned.
     """
 
-    location: Optional[constr(strip_whitespace=True, min_length=1)] = None
+    location: Optional[constr(min_length=1)] = None
     """
     Optional. Specifies the combination of "address, neighborhood, city, state or zip, optional country" to be used when
     searching for events.
@@ -125,7 +125,7 @@ class EventSearchEndpoint(Endpoint):
     value is ``40000`` meters (about 25 miles).
     """
 
-    excluded_events: Optional[constr(strip_whitespace=True, min_length=1)] = None
+    excluded_events: Optional[constr(min_length=1)] = None
     """
     Optional. List of event ids. Events associated with these event ids in this list will not show up in the response.
     """
