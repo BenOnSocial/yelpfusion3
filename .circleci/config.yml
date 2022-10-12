@@ -155,4 +155,4 @@ workflows:
               ignore: /.*/
       - notify:
           requires:
-            - publish
+            - build
