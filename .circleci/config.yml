@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@3.2.3
+  slack: circleci/slack@4.10.1
 
 executors:
   python-executor:
@@ -120,6 +121,16 @@ jobs:
 #      - pypi:
 #          test: false
 
+  notify:
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
 
 workflows:
   version: 2
@@ -142,3 +153,6 @@ workflows:
               only: /^[0-9]+.[0-9]+.[0-9]+$/
             branches:
               ignore: /.*/
+      - notify:
+          requires:
+            - publish
