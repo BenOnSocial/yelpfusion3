@@ -21,6 +21,8 @@ from yelpfusion3.business.model import (
     TransactionSearch,
 )
 from yelpfusion3.client import Client
+from yelpfusion3.event.endpoint import EventSearchEndpoint
+from yelpfusion3.event.model import EventSearch
 
 
 @pytest.mark.skipif(
@@ -223,3 +225,18 @@ class TestClient:
             "del" in business.name.lower() for business in autocomplete.businesses
         )
         assert all("del" in term.text.lower() for term in autocomplete.terms)
+
+    def test_event_search(self) -> None:
+        event_search_endpoint: EventSearchEndpoint = Client.event_search()
+        event_search_endpoint.limit = 50
+        event_search_endpoint.radius = 40000
+        event_search_endpoint.location = "san francisco, ca"
+        event_search_endpoint.categories = "food-and-drink,nightlife"
+
+        event_search: EventSearch = event_search_endpoint.get()
+
+        assert event_search.total > 0
+        assert all(
+            event.category in ["food-and-drink", "nightlife"]
+            for event in event_search.events
+        )

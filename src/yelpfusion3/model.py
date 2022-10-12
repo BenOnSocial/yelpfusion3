@@ -9,7 +9,7 @@ class Model(BaseModel):
     Basic base class for all model implementations.
     """
 
-    class Config:   # pragma: no cover
+    class Config:  # pragma: no cover
         anystr_strip_whitespace = True
         min_anystr_length = 0
         validate_assignment = True
