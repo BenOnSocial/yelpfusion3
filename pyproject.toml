@@ -149,9 +149,6 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:",
 ]
-omit = [
-    "src/yelpfusion3/model.py",
-]
 
 [tool.coverage.html]
 directory = "build/test/cov/html"
