@@ -20,24 +20,16 @@ class TestBusinessDetailsEndpoint:
         ],
     )
     def test_url(self, business_id: str) -> None:
-        business_details_endpoint: BusinessDetailsEndpoint = BusinessDetailsEndpoint(
-            business_id=business_id
-        )
+        business_details_endpoint: BusinessDetailsEndpoint = BusinessDetailsEndpoint(business_id=business_id)
 
-        assert (
-            business_details_endpoint.url
-            == f"https://api.yelp.com/v3/businesses/{business_id}"
-        )
+        assert business_details_endpoint.url == f"https://api.yelp.com/v3/businesses/{business_id}"
 
     def test_url_build_with_locale(self) -> None:
         business_details_endpoint: BusinessDetailsEndpoint = BusinessDetailsEndpoint(
             business_id="WavvLdfdP6g8aZTtbBQHTw", locale="en_US"
         )
 
-        assert (
-            business_details_endpoint.url
-            == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw?locale=en_US"
-        )
+        assert business_details_endpoint.url == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw?locale=en_US"
 
     @pytest.mark.parametrize(
         "business_id",
@@ -140,9 +132,7 @@ class TestBusinessSearchEndpoint:
             unsupported="an unsupported field",
         )
 
-        assert "unsupported" not in [
-            key for key, value in dict(business_search_endpoint).items()
-        ]
+        assert "unsupported" not in [key for key, value in dict(business_search_endpoint).items()]
         assert (
             business_search_endpoint.url
             == "https://api.yelp.com/v3/businesses/search?term=coffee&location=san%20francisco&radius=25&limit=20&price=1%2C2"
@@ -212,9 +202,7 @@ class TestBusinessSearchEndpoint:
 
         assert business_search_endpoint.price == expected
 
-    @pytest.mark.parametrize(
-        "price", ["0", "5", "4,5", "0,1", "invalid", "", " ", None]
-    )
+    @pytest.mark.parametrize("price", ["0", "5", "4,5", "0,1", "invalid", "", " ", None])
     def test_price_fails_validation(self, price: str) -> None:
         business_search_endpoint: BusinessSearchEndpoint = BusinessSearchEndpoint()
 
@@ -259,35 +247,24 @@ class TestBusinessSearchEndpoint:
 
 class TestPhoneSearchEndpoint:
     def test_url(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(
-            phone="+14159083801"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(phone="+14159083801")
 
-        assert (
-            phone_search_endpoint.url
-            == "https://api.yelp.com/v3/businesses/search/phone?phone=%2B14159083801"
-        )
+        assert phone_search_endpoint.url == "https://api.yelp.com/v3/businesses/search/phone?phone=%2B14159083801"
 
     def test_locale_init_validation(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(
-            phone="+14159083801", locale="en_US"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(phone="+14159083801", locale="en_US")
 
         assert phone_search_endpoint.locale == "en_US"
 
     def test_locale_validation(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(
-            phone="+14159083801"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(phone="+14159083801")
 
         phone_search_endpoint.locale = "en_US"
 
         assert phone_search_endpoint.locale == "en_US"
 
     def test_locale_fails_validation(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(
-            phone="+14159083801"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = PhoneSearchEndpoint(phone="+14159083801")
 
         with pytest.raises(ValueError):
             phone_search_endpoint.locale = "zz_ZZ"
@@ -295,30 +272,18 @@ class TestPhoneSearchEndpoint:
 
 class TestReviewsEndpoint:
     def test_url(self) -> None:
-        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(
-            business_id="WavvLdfdP6g8aZTtbBQHTw"
-        )
+        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(business_id="WavvLdfdP6g8aZTtbBQHTw")
 
-        assert (
-            reviews_endpoint.url
-            == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw/reviews"
-        )
+        assert reviews_endpoint.url == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw/reviews"
 
     def test_url_build_with_locale(self) -> None:
-        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(
-            business_id="WavvLdfdP6g8aZTtbBQHTw"
-        )
+        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(business_id="WavvLdfdP6g8aZTtbBQHTw")
         reviews_endpoint.locale = "fr_FR"
 
-        assert (
-            reviews_endpoint.url
-            == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw/reviews?locale=fr_FR"
-        )
+        assert reviews_endpoint.url == "https://api.yelp.com/v3/businesses/WavvLdfdP6g8aZTtbBQHTw/reviews?locale=fr_FR"
 
     def test_locale_fails_validation(self) -> None:
-        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(
-            business_id="WavvLdfdP6g8aZTtbBQHTw"
-        )
+        reviews_endpoint: ReviewsEndpoint = ReviewsEndpoint(business_id="WavvLdfdP6g8aZTtbBQHTw")
 
         with pytest.raises(ValueError):
             reviews_endpoint.locale = "zz_ZZ"
@@ -326,8 +291,8 @@ class TestReviewsEndpoint:
 
 class TestTransactionSearchEndpoint:
     def test_url_location(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = (
-            TransactionSearchEndpoint(location="800 N Point St San Francisco CA")
+        transaction_search_endpoint: TransactionSearchEndpoint = TransactionSearchEndpoint(
+            location="800 N Point St San Francisco CA"
         )
 
         assert (
@@ -336,8 +301,8 @@ class TestTransactionSearchEndpoint:
         )
 
     def test_url_latitude_longitude(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = (
-            TransactionSearchEndpoint(latitude=37.80587, longitude=-122.42058)
+        transaction_search_endpoint: TransactionSearchEndpoint = TransactionSearchEndpoint(
+            latitude=37.80587, longitude=-122.42058
         )
 
         assert (
@@ -358,24 +323,14 @@ class TestTransactionSearchEndpoint:
 
 class TestAutocompleteEndpoint:
     def test_url(self) -> None:
-        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
-            text="coffee"
-        )
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(text="coffee")
 
-        assert (
-            autocomplete_endpoint.url
-            == "https://api.yelp.com/v3/autocomplete?text=coffee"
-        )
+        assert autocomplete_endpoint.url == "https://api.yelp.com/v3/autocomplete?text=coffee"
 
     def test_url_locale(self) -> None:
-        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(
-            text="coffee", locale="fr_FR"
-        )
+        autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(text="coffee", locale="fr_FR")
 
-        assert (
-            autocomplete_endpoint.url
-            == "https://api.yelp.com/v3/autocomplete?text=coffee&locale=fr_FR"
-        )
+        assert autocomplete_endpoint.url == "https://api.yelp.com/v3/autocomplete?text=coffee&locale=fr_FR"
 
     def test_url_latitude_longitude(self) -> None:
         autocomplete_endpoint: AutocompleteEndpoint = AutocompleteEndpoint(

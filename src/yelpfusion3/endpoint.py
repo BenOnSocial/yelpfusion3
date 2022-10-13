@@ -259,9 +259,7 @@ class Endpoint(BaseModel):
         :return: Yelp Fusion API 3 endpoint URL.
         :rtype: str
         """
-        non_none_fields = {
-            key: value for key, value in self.dict().items() if value is not None
-        }
+        non_none_fields = {key: value for key, value in self.dict().items() if value is not None}
         parameters = urlencode(query=non_none_fields, quote_via=quote)
         settings = Settings()
         if parameters:

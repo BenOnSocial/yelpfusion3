@@ -53,9 +53,7 @@ class BusinessDetailsEndpoint(Endpoint):
         :rtype: str
         """
         non_none_fields = {
-            key: value
-            for key, value in self.dict().items()
-            if value is not None and key != "business_id"
+            key: value for key, value in self.dict().items() if value is not None and key != "business_id"
         }
         parameters = urlencode(query=non_none_fields)
         settings: Settings = Settings()
@@ -93,17 +91,13 @@ class BusinessMatchesEndpoint(Endpoint):
     that have no street address.
     """
 
-    address2: Optional[
-        constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")
-    ]
+    address2: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]
     """
     Optional. The second line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
     ``'/#&,.:`` are allowed.
     """
 
-    address3: Optional[
-        constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")
-    ]
+    address3: Optional[constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$")]
     """
     Optional. The third line of the business’s address. Maximum length is 64; only digits, letters, spaces, and
     ``'/#&,.:`` are allowed.
@@ -319,18 +313,14 @@ class BusinessSearchEndpoint(Endpoint):
     def _check_price(cls, v: str) -> str:
         if v and v.strip():
             levels: List[str] = [level.strip() for level in v.split(sep=",")]
-            if all(
-                validators.between(value=int(level), min=1, max=4) for level in levels
-            ):
+            if all(validators.between(value=int(level), min=1, max=4) for level in levels):
                 return ",".join(levels)
         raise ValueError("Malformed 'price' value.")
 
     @validator("attributes")
     def _check_attributes(cls, v: str) -> str:
         if v and v.strip():
-            attributes: List[str] = [
-                attribute.strip() for attribute in v.split(sep=",")
-            ]
+            attributes: List[str] = [attribute.strip() for attribute in v.split(sep=",")]
             if all(
                 attribute
                 in [
@@ -405,9 +395,7 @@ class ReviewsEndpoint(Endpoint):
         :rtype: str
         """
         non_none_fields = {
-            key: value
-            for key, value in self.dict().items()
-            if value is not None and key != "business_id"
+            key: value for key, value in self.dict().items() if value is not None and key != "business_id"
         }
         parameters = urlencode(query=non_none_fields)
         settings: Settings = Settings()

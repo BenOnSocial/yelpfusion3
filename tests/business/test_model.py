@@ -51,10 +51,7 @@ class TestBusiness:
         assert business.id == "E8RJkjfdcwgtyoPMjQ_Olg"
         assert business.alias == "four-barrel-coffee-san-francisco"
         assert business.name == "Four Barrel Coffee"
-        assert (
-            business.image_url
-            == "https://s3-media1.fl.yelpcdn.com/bphoto/e_urruIKpneV8yAXkAK9RA/o.jpg"
-        )
+        assert business.image_url == "https://s3-media1.fl.yelpcdn.com/bphoto/e_urruIKpneV8yAXkAK9RA/o.jpg"
         assert not business.is_closed
         assert (
             business.url
@@ -280,9 +277,7 @@ class TestBusinessSearch:
             },
         ],
         "total": 5900,
-        "region": {
-            "center": {"longitude": -122.43644714355469, "latitude": 37.76089938976322}
-        },
+        "region": {"center": {"longitude": -122.43644714355469, "latitude": 37.76089938976322}},
     }
 
     def test_deserialization(self) -> None:
@@ -293,10 +288,7 @@ class TestBusinessSearch:
         assert business_search.region.center.latitude == 37.76089938976322
 
         assert business_search.businesses[0].id == "DaOQgNk4LjN2gbvYrLQGvA"
-        assert (
-            business_search.businesses[0].alias
-            == "rise-and-grind-coffee-and-tea-san-francisco-6"
-        )
+        assert business_search.businesses[0].alias == "rise-and-grind-coffee-and-tea-san-francisco-6"
         assert business_search.businesses[0].review_count == 373
         assert business_search.businesses[0].display_phone == "(415) 780-1579"
         assert business_search.businesses[0].distance == 2974.448388088878
@@ -320,9 +312,7 @@ class TestDetailedHours:
     ]
 
     def test_deserialization(self) -> None:
-        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0][
-            "open"
-        ][0].copy()
+        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0]["open"][0].copy()
         detailed_hours: DetailedHours = DetailedHours(**test_detailed_hours)
 
         assert not detailed_hours.is_overnight
@@ -332,9 +322,7 @@ class TestDetailedHours:
 
     @pytest.mark.parametrize("start", ["-1", "2401"])
     def test_start_fails_validation(self, start: str) -> None:
-        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0][
-            "open"
-        ][0].copy()
+        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0]["open"][0].copy()
         test_detailed_hours["start"] = start
 
         with pytest.raises(ValueError):
@@ -342,9 +330,7 @@ class TestDetailedHours:
 
     @pytest.mark.parametrize("end", ["-1", "2401"])
     def test_end_fails_validation(self, end: str) -> None:
-        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0][
-            "open"
-        ][0].copy()
+        test_detailed_hours: Dict[str, Union[bool, int, str]] = self.test_data[0]["open"][0].copy()
         test_detailed_hours["end"] = end
 
         with pytest.raises(ValueError):
@@ -432,14 +418,8 @@ class TestReview:
             == "https://www.yelp.com/biz/la-palma-mexicatessen-san-francisco?hrid=hp8hAJ-AnlpqxCCu7kyCWA&adjust_creative=0sidDfoTIHle5vvHEBvF0w&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_reviews&utm_source=0sidDfoTIHle5vvHEBvF0w"
         )
         assert review.user.id == "W8UK02IDdRS2GL_66fuq6w"
-        assert (
-            review.user.profile_url
-            == "https://www.yelp.com/user_details?userid=W8UK02IDdRS2GL_66fuq6w"
-        )
-        assert (
-            review.user.image_url
-            == "https://s3-media3.fl.yelpcdn.com/photo/iwoAD12zkONZxJ94ChAaMg/o.jpg"
-        )
+        assert review.user.profile_url == "https://www.yelp.com/user_details?userid=W8UK02IDdRS2GL_66fuq6w"
+        assert review.user.image_url == "https://s3-media3.fl.yelpcdn.com/photo/iwoAD12zkONZxJ94ChAaMg/o.jpg"
         assert review.user.name == "Ella A."
 
 
