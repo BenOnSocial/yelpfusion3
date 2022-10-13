@@ -7,7 +7,6 @@ from requests import Response
 
 from yelpfusion3.endpoint import Endpoint
 from yelpfusion3.event.model import Event, EventSearch, SupportedCategories
-from yelpfusion3.model import Model
 from yelpfusion3.settings import Settings
 
 
@@ -20,8 +19,8 @@ class EventSearchEndpoint(Endpoint):
 
     locale: Optional[str] = None
     """
-    Optional. Specify the locale to return the event information in. See the list of supported locales. Defaults to
-    ``en_US``.
+    Optional. Specify the locale to return the event information in. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     offset: Optional[int] = None

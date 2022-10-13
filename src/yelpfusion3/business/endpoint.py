@@ -40,8 +40,8 @@ class BusinessDetailsEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to ``en_US``.
+    Optional. Specify the locale into which to localize the business information. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     @property
@@ -236,8 +236,8 @@ class BusinessSearchEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to ``en_US``.
+    Optional. Specify the locale into which to localize the business information. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     limit: Optional[conint(gt=0, lt=50)]
@@ -357,8 +357,8 @@ class PhoneSearchEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to ``en_US``.
+    Optional. Specify the locale into which to localize the business information. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     def get(self) -> PhoneSearch:
@@ -382,8 +382,8 @@ class ReviewsEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale into which to localize the business information. See the list of supported locales.
-    Defaults to ``en_US``.
+    Optional. Specify the locale into which to localize the business information. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     @property
@@ -467,8 +467,8 @@ class AutocompleteEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale to return the autocomplete suggestions in. See the list of supported locales. Defaults
-    to ``en_US``.
+    Optional. Specify the locale to return the autocomplete suggestions in. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     def get(self) -> Autocomplete:

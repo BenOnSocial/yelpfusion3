@@ -18,8 +18,8 @@ class CategoryDetailsEndpoint(Endpoint):
 
     locale: Optional[str]
     """
-    Optional. Specify the locale to return the autocomplete suggestions in. See the list of supported locales. Defaults
-    to ``en_US``.
+    Optional. Specify the locale to return the autocomplete suggestions in. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
     """
 
     alias: constr(min_length=1)
