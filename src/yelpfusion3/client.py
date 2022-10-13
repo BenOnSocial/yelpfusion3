@@ -172,6 +172,8 @@ class Client:
         longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> AutocompleteEndpoint:
         """
+        Creates a new :py:class:`~yelpfusion3.business.endpoint.AutocompleteEndpoint` object used to interact with the
+        Yelp Autocomplete REST endpoint.
 
         :param text: Required. Text to return autocomplete suggestions for.
         :type text: str
