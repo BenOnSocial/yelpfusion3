@@ -21,8 +21,8 @@ from yelpfusion3.business.model import (
     TransactionSearch,
 )
 from yelpfusion3.client import Client
-from yelpfusion3.event.endpoint import EventSearchEndpoint
-from yelpfusion3.event.model import EventSearch
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
+from yelpfusion3.event.model import Event, EventSearch
 
 
 @pytest.mark.skipif(
@@ -240,3 +240,18 @@ class TestClient:
             event.category in ["food-and-drink", "nightlife"]
             for event in event_search.events
         )
+
+    def test_event_lookup(self) -> None:
+        event_lookup_endpoint: EventLookupEndpoint = Client.event_lookup(
+            event_id="oakland-saucy-oakland-restaurant-pop-up"
+        )
+
+        event: Event = event_lookup_endpoint.get()
+
+        assert event.id == "oakland-saucy-oakland-restaurant-pop-up"
+        assert event.category == "food-and-drink"
+        assert event.location.city == "Oakland"
+        assert event.location.state == "CA"
+        assert event.location.zip_code == "94612"
+        assert event.location.country == "US"
+        assert event.business_id == "anfilo-oakland-2"

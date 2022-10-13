@@ -13,7 +13,7 @@ from yelpfusion3.business.endpoint import (
     ReviewsEndpoint,
     TransactionSearchEndpoint,
 )
-from yelpfusion3.event.endpoint import EventSearchEndpoint
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
 
 
 class Client:
@@ -197,4 +197,19 @@ class Client:
         :return: An endpoint wrapper for the Yelp Event Search REST endpoint.
         :rtype: EventSearchEndpoint
         """
+
         return EventSearchEndpoint()
+
+    @staticmethod
+    def event_lookup(event_id: str) -> EventLookupEndpoint:
+        """
+        Creates a new :py:class:`~yelpfusion3.event.endpoint.EventLookupEndpoint` object used to interact with the Yelp
+        Lookup Search REST endpoint.
+
+        :param event_id: ID of the Yelp event to query for.
+        :type event_id: str
+        :return: An endpoint wrapper for the Yelp Event Lookup REST endpoint.
+        :rtype: EventLookupEndpoint
+        """
+
+        return EventLookupEndpoint(id=event_id)

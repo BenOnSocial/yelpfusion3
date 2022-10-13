@@ -1,40 +1,14 @@
 from datetime import datetime
-from typing import Dict, List, Literal, Optional
+from typing import List, Literal, Optional
+from urllib.parse import urlencode
 
 from pydantic import confloat, conint, constr, validator
 from requests import Response
 
 from yelpfusion3.endpoint import Endpoint
-from yelpfusion3.event.model import EventSearch
-
-
-class SupportedCategories:
-    """
-    A collection of categories supported by the Yelp Fusion API's Event Search endpoint.
-    See `Supported Categories <https://www.yelp.com/developers/documentation/v3/event_categories_list>`_
-    """
-
-    categories: Dict = {
-        "Music": "music",
-        "Visual Arts": "visual-arts",
-        "Performing Arts": "performing-arts",
-        "Film": "film",
-        "Lectures & Books": "lectures-books",
-        "Fashion": "fashion",
-        "Food & Drink": "food-and-drink",
-        "Festivals & Fairs": "festivals-fairs",
-        "Charities": "charities",
-        "Sports & Active Life": "sports-active-life",
-        "Nightlife": "nightlife",
-        "Kids & Family": "kids-family",
-        "Other": "other",
-    }
-
-    @staticmethod
-    def contains(
-        value: constr(strip_whitespace=True, to_lower=True, min_length=1)
-    ) -> bool:
-        return value in SupportedCategories.categories.values()
+from yelpfusion3.event.model import Event, EventSearch, SupportedCategories
+from yelpfusion3.model import Model
+from yelpfusion3.settings import Settings
 
 
 class EventSearchEndpoint(Endpoint):
@@ -157,3 +131,48 @@ class EventSearchEndpoint(Endpoint):
             return ",".join(categories)
 
         raise ValueError("'categories' field contains unsupported categories.")
+
+
+class EventLookupEndpoint(Endpoint):
+    """
+    This endpoint returns the detailed information of a Yelp event.
+    """
+
+    _path: str = "/events/{id}"
+
+    id: str
+    """
+    ID of the Yelp event to query for.
+    """
+
+    locale: Optional[str] = None
+    """
+    Optional. Specify the locale to return the event information in. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
+    """
+
+    @property
+    def url(self) -> str:
+        """
+        Constructs a URL to the event lookup endpoint with the given query parameters.
+
+        :return: Yelp Fusion API 3 endpoint URL.
+        :rtype: str
+        """
+        non_none_fields = {
+            key: value
+            for key, value in self.dict().items()
+            if value is not None and key != "id"
+        }
+        parameters = urlencode(query=non_none_fields)
+        settings: Settings = Settings()
+        path: str = self._path.format(id=self.id)
+
+        if parameters:
+            return f"{settings.base_url}{path}?{parameters}"
+        else:
+            return f"{settings.base_url}{path}"
+
+    def get(self) -> Event:
+        response: Response = self._get()
+        return Event(**response.json())

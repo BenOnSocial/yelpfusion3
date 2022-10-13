@@ -1,33 +1,6 @@
 import pytest
 
-from yelpfusion3.event.endpoint import EventSearchEndpoint, SupportedCategories
-from yelpfusion3.event.model import EventSearch
-
-
-class TestSupportedCategories:
-    @pytest.mark.parametrize(
-        "category",
-        [
-            "music",
-            "visual-arts",
-            "performing-arts",
-            "film",
-            "lectures-books",
-            "fashion",
-            "food-and-drink",
-            "festivals-fairs",
-            "charities",
-            "sports-active-life",
-            "nightlife",
-            "kids-family",
-            "other",
-        ],
-    )
-    def test_contains(self, category: str) -> None:
-        assert SupportedCategories.contains(category)
-
-    def test_contains_fails(self) -> None:
-        assert not SupportedCategories.contains("not-supported")
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
 
 
 class TestEventSearchEndpoint:
@@ -70,3 +43,26 @@ class TestEventSearchEndpoint:
 
         with pytest.raises(ValueError):
             event_search_endpoint.radius = 40001
+
+
+class TestEventLookupEndpoint:
+    def test_url(self) -> None:
+        event_lookup_endpoint: EventLookupEndpoint = EventLookupEndpoint(
+            id="oakland-saucy-oakland-restaurant-pop-up"
+        )
+
+        assert (
+            event_lookup_endpoint.url
+            == "https://api.yelp.com/v3/events/oakland-saucy-oakland-restaurant-pop-up"
+        )
+
+    def test_url_locale(self) -> None:
+        event_lookup_endpoint: EventLookupEndpoint = EventLookupEndpoint(
+            id="oakland-saucy-oakland-restaurant-pop-up",
+            locale="fr_FR"
+        )
+
+        assert (
+            event_lookup_endpoint.url
+            == "https://api.yelp.com/v3/events/oakland-saucy-oakland-restaurant-pop-up?locale=fr_FR"
+        )
