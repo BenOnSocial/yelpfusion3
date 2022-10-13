@@ -76,9 +76,7 @@ class TestEvent:
             event.description
             == 'Come join the Yelp Team and all of Yelpland in celebrating our 3rd Annual Yelp Holiday Party! Just some of the "funny, useful and cool" thrills will include...'
         )
-        assert (
-            event.id == "san-francisco-peace-love-and-yelp-our-3rd-annual-holiday-party"
-        )
+        assert event.id == "san-francisco-peace-love-and-yelp-our-3rd-annual-holiday-party"
         assert event.interested_count == 73
         assert not event.is_canceled
         assert event.is_free
@@ -147,27 +145,18 @@ class TestEventSearch:
             event_search.events[0].description
             == 'Come join the Yelp Team and all of Yelpland in celebrating our 3rd Annual Yelp Holiday Party! Just some of the "funny, useful and cool" thrills will include...'
         )
-        assert (
-            event_search.events[0].id
-            == "san-francisco-peace-love-and-yelp-our-3rd-annual-holiday-party"
-        )
+        assert event_search.events[0].id == "san-francisco-peace-love-and-yelp-our-3rd-annual-holiday-party"
         assert event_search.events[0].interested_count == 73
         assert not event_search.events[0].is_canceled
         assert event_search.events[0].is_free
         assert not event_search.events[0].is_official
         assert event_search.events[0].latitude == 37.78574
         assert event_search.events[0].longitude == -122.40255
-        assert (
-            event_search.events[0].name
-            == "Peace, Love & Yelp: Our 3rd Annual Holiday Party!"
-        )
+        assert event_search.events[0].name == "Peace, Love & Yelp: Our 3rd Annual Holiday Party!"
         assert event_search.events[0].location.address1 == "701 Mission St"
         assert event_search.events[0].location.city == "San Francisco"
         assert event_search.events[0].location.zip_code == "94103"
         assert event_search.events[0].location.country == "US"
         assert event_search.events[0].location.state == "CA"
         assert event_search.events[0].location.cross_streets == "Opera Aly & 3rd St"
-        assert (
-            event_search.events[0].business_id
-            == "yerba-buena-center-for-the-arts-san-francisco"
-        )
+        assert event_search.events[0].business_id == "yerba-buena-center-for-the-arts-san-francisco"

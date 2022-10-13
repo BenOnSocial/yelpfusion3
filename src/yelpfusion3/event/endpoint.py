@@ -123,9 +123,7 @@ class EventSearchEndpoint(Endpoint):
 
         # We could have done the validation in the "regex" argument to constr(), but it would be a lot more complicated
         # and not very readable.
-        categories: List[str] = [
-            category.strip() for category in v.split(sep=",") if category.strip()
-        ]
+        categories: List[str] = [category.strip() for category in v.split(sep=",") if category.strip()]
 
         if all(SupportedCategories.contains(category) for category in categories):
             return ",".join(categories)
@@ -159,11 +157,7 @@ class EventLookupEndpoint(Endpoint):
         :return: Yelp Fusion API 3 endpoint URL.
         :rtype: str
         """
-        non_none_fields = {
-            key: value
-            for key, value in self.dict().items()
-            if value is not None and key != "id"
-        }
+        non_none_fields = {key: value for key, value in self.dict().items() if value is not None and key != "id"}
         parameters = urlencode(query=non_none_fields)
         settings: Settings = Settings()
         path: str = self._path.format(id=self.id)
@@ -172,6 +166,41 @@ class EventLookupEndpoint(Endpoint):
             return f"{settings.base_url}{path}?{parameters}"
         else:
             return f"{settings.base_url}{path}"
+
+    def get(self) -> Event:
+        response: Response = self._get()
+        return Event(**response.json())
+
+
+class FeaturedEventEndpoint(Endpoint):
+    """
+    This endpoint returns the featured event for a given location. Featured events are chosen by Yelp's community
+    managers.
+    """
+
+    _path: str = "/events/featured"
+
+    locale: Optional[str] = None
+    """
+    Optional. Specify the locale to return the event information in. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. Defaults to ``en_US``.
+    """
+
+    location: Optional[constr(min_length=1)] = None
+    """
+    Required, if latitude and longitude not provided. Specifies the combination of "address, neighborhood, city, state
+    or zip, optional country" to be used while searching for events.
+    """
+
+    latitude: Optional[confloat(ge=-90.0, le=90.0)] = None
+    """
+    Required, if location not provided. Latitude of the location to search from.
+    """
+
+    longitude: Optional[confloat(ge=-180.0, le=180.0)] = None
+    """
+    Required, if location not provided. Longitude of the location to search from.
+    """
 
     def get(self) -> Event:
         response: Response = self._get()

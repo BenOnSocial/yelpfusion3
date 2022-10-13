@@ -21,13 +21,11 @@ from yelpfusion3.business.model import (
     TransactionSearch,
 )
 from yelpfusion3.client import Client
-from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 from yelpfusion3.event.model import Event, EventSearch
 
 
-@pytest.mark.skipif(
-    condition=not os.getenv("YELP_API_KEY"), reason="API key not configured"
-)
+@pytest.mark.skipif(condition=not os.getenv("YELP_API_KEY"), reason="API key not configured")
 class TestClient:
     def test_business_details(self) -> None:
         business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
@@ -80,10 +78,7 @@ class TestClient:
         business_search: BusinessSearch = business_search_endpoint.get()
 
         assert business_search.total > 0
-        assert all(
-            business.location.city == "Cupertino"
-            for business in business_search.businesses
-        )
+        assert all(business.location.city == "Cupertino" for business in business_search.businesses)
 
     def test_business_search_by_latitude_longitude(self) -> None:
         business_search_endpoint: BusinessSearchEndpoint = Client.business_search(
@@ -94,10 +89,7 @@ class TestClient:
         business_search: BusinessSearch = business_search_endpoint.get()
 
         assert business_search.total > 0
-        assert all(
-            business.location.city == "Cupertino"
-            for business in business_search.businesses
-        )
+        assert all(business.location.city == "Cupertino" for business in business_search.businesses)
 
     def test_business_search_missing_arguments_raises_error(self) -> None:
         with pytest.raises(ValueError):
@@ -112,9 +104,7 @@ class TestClient:
             Client.business_search(longitude=-122.0306396484375)
 
     def test_phone_search(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = Client.phone_search(
-            phone="+14157492060"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = Client.phone_search(phone="+14157492060")
 
         phone_search: PhoneSearch = phone_search_endpoint.get()
 
@@ -125,9 +115,7 @@ class TestClient:
         assert phone_search.businesses[0].name == "Gary Danko"
 
     def test_phone_search_no_matches(self) -> None:
-        phone_search_endpoint: PhoneSearchEndpoint = Client.phone_search(
-            phone="+10000000000"
-        )
+        phone_search_endpoint: PhoneSearchEndpoint = Client.phone_search(phone="+10000000000")
 
         phone_search: PhoneSearch = phone_search_endpoint.get()
 
@@ -135,9 +123,7 @@ class TestClient:
         assert not phone_search.businesses
 
     def test_reviews(self) -> None:
-        reviews_endpoint: ReviewsEndpoint = Client.reviews(
-            business_id="WavvLdfdP6g8aZTtbBQHTw"
-        )
+        reviews_endpoint: ReviewsEndpoint = Client.reviews(business_id="WavvLdfdP6g8aZTtbBQHTw")
 
         reviews: Reviews = reviews_endpoint.get()
 
@@ -148,34 +134,24 @@ class TestClient:
         assert "en" in reviews.possible_languages
 
     def test_transaction_search_by_location(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = (
-            Client.transaction_search(
-                location="20488 Stevens Creek Blvd, Cupertino, CA 95014"
-            )
+        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
+            location="20488 Stevens Creek Blvd, Cupertino, CA 95014"
         )
 
         transaction_search: TransactionSearch = transaction_search_endpoint.get()
 
         assert transaction_search.total > 0
-        assert all(
-            "delivery" in business.transactions
-            for business in transaction_search.businesses
-        )
+        assert all("delivery" in business.transactions for business in transaction_search.businesses)
 
     def test_transaction_search_by_latitude_longitude(self) -> None:
-        transaction_search_endpoint: TransactionSearchEndpoint = (
-            Client.transaction_search(
-                latitude=37.32238222393683, longitude=-122.0306396484375
-            )
+        transaction_search_endpoint: TransactionSearchEndpoint = Client.transaction_search(
+            latitude=37.32238222393683, longitude=-122.0306396484375
         )
 
         transaction_search: TransactionSearch = transaction_search_endpoint.get()
 
         assert transaction_search.total > 0
-        assert all(
-            "delivery" in business.transactions
-            for business in transaction_search.businesses
-        )
+        assert all("delivery" in business.transactions for business in transaction_search.businesses)
 
     def test_transaction_search_missing_arguments_raises_error(self) -> None:
         with pytest.raises(ValueError):
@@ -197,12 +173,8 @@ class TestClient:
         assert len(autocomplete.categories) > 0
         assert not autocomplete.businesses
         assert len(autocomplete.terms) > 0
-        assert all(
-            "del" in category.alias.lower() for category in autocomplete.categories
-        )
-        assert all(
-            "del" in category.title.lower() for category in autocomplete.categories
-        )
+        assert all("del" in category.alias.lower() for category in autocomplete.categories)
+        assert all("del" in category.title.lower() for category in autocomplete.categories)
         assert all("del" in term.text.lower() for term in autocomplete.terms)
 
     def test_autocomplete_text_latitude_longitude(self) -> None:
@@ -215,15 +187,9 @@ class TestClient:
         assert len(autocomplete.categories) > 0
         assert len(autocomplete.businesses) > 0
         assert len(autocomplete.terms) > 0
-        assert all(
-            "del" in category.alias.lower() for category in autocomplete.categories
-        )
-        assert all(
-            "del" in category.title.lower() for category in autocomplete.categories
-        )
-        assert all(
-            "del" in business.name.lower() for business in autocomplete.businesses
-        )
+        assert all("del" in category.alias.lower() for category in autocomplete.categories)
+        assert all("del" in category.title.lower() for category in autocomplete.categories)
+        assert all("del" in business.name.lower() for business in autocomplete.businesses)
         assert all("del" in term.text.lower() for term in autocomplete.terms)
 
     def test_event_search(self) -> None:
@@ -236,10 +202,7 @@ class TestClient:
         event_search: EventSearch = event_search_endpoint.get()
 
         assert event_search.total > 0
-        assert all(
-            event.category in ["food-and-drink", "nightlife"]
-            for event in event_search.events
-        )
+        assert all(event.category in ["food-and-drink", "nightlife"] for event in event_search.events)
 
     def test_event_lookup(self) -> None:
         event_lookup_endpoint: EventLookupEndpoint = Client.event_lookup(
@@ -255,3 +218,37 @@ class TestClient:
         assert event.location.zip_code == "94612"
         assert event.location.country == "US"
         assert event.business_id == "anfilo-oakland-2"
+
+    def test_featured_event_location(self) -> None:
+        featured_event_endpoint: FeaturedEventEndpoint = Client.featured_event(location="San Francisco, CA")
+
+        event: Event = featured_event_endpoint.get()
+
+        assert event.id
+        assert event.location.city == "San Francisco"
+        assert event.location.state == "CA"
+        assert event.location.country == "US"
+
+    def test_featured_event_latitude_longitude(self) -> None:
+        featured_event_endpoint: FeaturedEventEndpoint = Client.featured_event(
+            latitude=37.7726402, longitude=-122.4099154
+        )
+
+        event: Event = featured_event_endpoint.get()
+
+        assert event.id
+        assert event.location.city == "San Francisco"
+        assert event.location.state == "CA"
+        assert event.location.country == "US"
+
+    def test_featured_event_missing_required_arguments(self) -> None:
+        with pytest.raises(ValueError):
+            Client.featured_event()
+
+    def test_featured_event_missing_latitude(self) -> None:
+        with pytest.raises(ValueError):
+            Client.featured_event(longitude=-122.4099154)
+
+    def test_featured_event_missing_longitude(self) -> None:
+        with pytest.raises(ValueError):
+            Client.featured_event(latitude=37.7726402)

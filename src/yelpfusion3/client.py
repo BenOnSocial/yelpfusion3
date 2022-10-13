@@ -13,7 +13,7 @@ from yelpfusion3.business.endpoint import (
     ReviewsEndpoint,
     TransactionSearchEndpoint,
 )
-from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 
 
 class Client:
@@ -25,9 +25,7 @@ class Client:
 
     @staticmethod
     def business_details(
-        business_id: constr(
-            min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True
-        )
+        business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
     ) -> BusinessDetailsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessDetailsEndpoint` object used to interact with
@@ -43,9 +41,7 @@ class Client:
 
     @staticmethod
     def business_matches(
-        name: constr(
-            min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"
-        ),
+        name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"),
         address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$"),
         city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$"),
         state: constr(min_length=2, max_length=3, to_upper=True),
@@ -112,9 +108,7 @@ class Client:
             raise ValueError("Missing required argument(s).")
 
     @staticmethod
-    def phone_search(
-        phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")
-    ) -> PhoneSearchEndpoint:
+    def phone_search(phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")) -> PhoneSearchEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.PhoneSearchEndpoint` object used to interact with the
         Yelp Phone Search REST endpoint.
@@ -129,11 +123,7 @@ class Client:
         return PhoneSearchEndpoint(phone=phone)
 
     @staticmethod
-    def reviews(
-        business_id: constr(
-            min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True
-        )
-    ) -> ReviewsEndpoint:
+    def reviews(business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)) -> ReviewsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.ReviewsEndpoint` object used to interact with the Yelp
         Reviews REST endpoint.
@@ -182,9 +172,7 @@ class Client:
         longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> AutocompleteEndpoint:
         if latitude and longitude:
-            return AutocompleteEndpoint(
-                text=text, latitude=latitude, longitude=longitude
-            )
+            return AutocompleteEndpoint(text=text, latitude=latitude, longitude=longitude)
         else:
             return AutocompleteEndpoint(text=text)
 
@@ -204,7 +192,7 @@ class Client:
     def event_lookup(event_id: str) -> EventLookupEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.event.endpoint.EventLookupEndpoint` object used to interact with the Yelp
-        Lookup Search REST endpoint.
+        Event Lookup REST endpoint.
 
         :param event_id: ID of the Yelp event to query for.
         :type event_id: str
@@ -213,3 +201,31 @@ class Client:
         """
 
         return EventLookupEndpoint(id=event_id)
+
+    @staticmethod
+    def featured_event(
+        location: Optional[constr(min_length=1, strip_whitespace=True)] = None,
+        latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
+        longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
+    ) -> FeaturedEventEndpoint:
+        """
+        Creates a new :py:class:`~yelpfusion3.event.endpoint.FeaturedEventEndpoint` object used to interact with the
+        Yelp Featured Event REST endpoint.
+
+        :param location: Required, if latitude and longitude not provided. Specifies the combination of "address,
+            neighborhood, city, state or zip, optional country" to be used while searching for events.
+        :type location: str
+        :param latitude: Required, if location not provided. Latitude of the location to search from.
+        :type latitude: float
+        :param longitude: Required, if location not provided. Longitude of the location to search from.
+        :type longitude: float
+        :return: An endpoint wrapper for the Yelp Featured Event REST endpoint.
+        :rtype: FeaturedEventEndpoint
+        """
+
+        if location:
+            return FeaturedEventEndpoint(location=location)
+        elif latitude and longitude:
+            return FeaturedEventEndpoint(latitude=latitude, longitude=longitude)
+        else:
+            raise ValueError("Missing required argument(s).")

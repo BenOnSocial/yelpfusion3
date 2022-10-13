@@ -1,6 +1,6 @@
 import pytest
 
-from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint
+from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 
 
 class TestEventSearchEndpoint:
@@ -47,22 +47,43 @@ class TestEventSearchEndpoint:
 
 class TestEventLookupEndpoint:
     def test_url(self) -> None:
-        event_lookup_endpoint: EventLookupEndpoint = EventLookupEndpoint(
-            id="oakland-saucy-oakland-restaurant-pop-up"
-        )
+        event_lookup_endpoint: EventLookupEndpoint = EventLookupEndpoint(id="oakland-saucy-oakland-restaurant-pop-up")
 
-        assert (
-            event_lookup_endpoint.url
-            == "https://api.yelp.com/v3/events/oakland-saucy-oakland-restaurant-pop-up"
-        )
+        assert event_lookup_endpoint.url == "https://api.yelp.com/v3/events/oakland-saucy-oakland-restaurant-pop-up"
 
     def test_url_locale(self) -> None:
         event_lookup_endpoint: EventLookupEndpoint = EventLookupEndpoint(
-            id="oakland-saucy-oakland-restaurant-pop-up",
-            locale="fr_FR"
+            id="oakland-saucy-oakland-restaurant-pop-up", locale="fr_FR"
         )
 
         assert (
             event_lookup_endpoint.url
             == "https://api.yelp.com/v3/events/oakland-saucy-oakland-restaurant-pop-up?locale=fr_FR"
+        )
+
+
+class TestFeaturedEventEndpoint:
+    def test_url_location(self) -> None:
+        featured_event_endpoint: FeaturedEventEndpoint = FeaturedEventEndpoint(location="San Francisco, CA")
+
+        assert featured_event_endpoint.url == "https://api.yelp.com/v3/events/featured?location=San%20Francisco%2C%20CA"
+
+    def test_url_locale(self) -> None:
+        featured_event_endpoint: FeaturedEventEndpoint = FeaturedEventEndpoint(
+            location="San Francisco, CA", locale="fr_FR"
+        )
+
+        assert (
+            featured_event_endpoint.url
+            == "https://api.yelp.com/v3/events/featured?locale=fr_FR&location=San%20Francisco%2C%20CA"
+        )
+
+    def test_url_latitude_longitude(self) -> None:
+        featured_event_endpoint: FeaturedEventEndpoint = FeaturedEventEndpoint(
+            latitude="37.7726402", longitude="-122.4099154"
+        )
+
+        assert (
+            featured_event_endpoint.url
+            == "https://api.yelp.com/v3/events/featured?latitude=37.7726402&longitude=-122.4099154"
         )

@@ -28,9 +28,7 @@ class SupportedCategories:
     }
 
     @staticmethod
-    def contains(
-        value: constr(strip_whitespace=True, to_lower=True, min_length=1)
-    ) -> bool:
+    def contains(value: constr(strip_whitespace=True, to_lower=True, min_length=1)) -> bool:
         return value in SupportedCategories.categories.values()
 
 
