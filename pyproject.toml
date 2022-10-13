@@ -44,7 +44,7 @@ dynamic = [
 
 
 [project.urls]
-Documentation = "https://github.com/benonsocial/yelpfusion3"
+Documentation = "https://yelpfusion3.readthedocs.io/en/latest/index.html"
 Issues = "https://github.com/benonsocial/yelpfusion3/issues"
 Source = "https://github.com/benonsocial/yelpfusion3"
 
