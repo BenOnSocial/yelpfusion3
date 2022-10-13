@@ -133,6 +133,10 @@ testpypi = "python3 -m twine upload --repository testpypi dist/*"
 pypi = "python3 -m twine upload --repository pypi dist/*'"
 
 
+[tool.black]
+line-length = 120
+
+
 [tool.coverage.run]
 branch = true
 parallel = true
@@ -163,6 +167,7 @@ skip = [
     ".gitignore"
 ]
 line_length = 120
+multi_line_output = 3
 
 
 [tool.mypy]
