@@ -13,7 +13,8 @@ from yelpfusion3.business.endpoint import (
     ReviewsEndpoint,
     TransactionSearchEndpoint,
 )
-from yelpfusion3.category.endpoint import CategoryDetailsEndpoint
+from yelpfusion3.category.endpoint import AllCategoriesEndpoint, CategoryDetailsEndpoint
+from yelpfusion3.category.model import Categories
 from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 
 
@@ -260,3 +261,14 @@ class Client:
         """
 
         return CategoryDetailsEndpoint(alias=alias)
+
+    @staticmethod
+    def all_categories() -> AllCategoriesEndpoint:
+        """
+        This endpoint returns all Yelp business categories across all locales by default.
+
+        :return: An endpoint wrapper for the Yelp All Categories REST endpoint.
+        :rtype: Categories
+        """
+
+        return AllCategoriesEndpoint()

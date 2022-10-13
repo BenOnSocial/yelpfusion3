@@ -1,6 +1,6 @@
 import pytest
 
-from yelpfusion3.category.endpoint import CategoryDetailsEndpoint
+from yelpfusion3.category.endpoint import AllCategoriesEndpoint, CategoryDetailsEndpoint
 
 
 class TestCategoryDetailsEndpoint:
@@ -23,3 +23,15 @@ class TestCategoryDetailsEndpoint:
     def test_missing_required_arguments(self) -> None:
         with pytest.raises(ValueError):
             CategoryDetailsEndpoint()
+
+
+class TestAllCategoriesEndpoint:
+    def test_url(self) -> None:
+        all_categories_endpoint: AllCategoriesEndpoint = AllCategoriesEndpoint()
+
+        assert all_categories_endpoint.url == "https://api.yelp.com/v3/categories"
+
+    def test_url_locale(self) -> None:
+        all_categories_endpoint: AllCategoriesEndpoint = AllCategoriesEndpoint(locale="fr_FR")
+
+        assert all_categories_endpoint.url == "https://api.yelp.com/v3/categories?locale=fr_FR"

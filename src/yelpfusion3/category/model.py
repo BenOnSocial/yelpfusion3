@@ -45,3 +45,14 @@ class CategoryDetails(Model):
     """
     Detailed information about the Yelp category.
     """
+
+
+class Categories(Model):
+    """
+    All Yelp business categories for a given locale.
+    """
+
+    categories: List[Category]
+    """
+    A list of all the categories for this locale.
+    """

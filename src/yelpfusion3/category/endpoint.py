@@ -4,8 +4,9 @@ from urllib.parse import urlencode
 from pydantic import constr
 from requests import Response
 
-from yelpfusion3.category.model import CategoryDetails
+from yelpfusion3.category.model import Categories, CategoryDetails
 from yelpfusion3.endpoint import Endpoint
+from yelpfusion3.model import Model
 from yelpfusion3.settings import Settings
 
 
@@ -48,3 +49,25 @@ class CategoryDetailsEndpoint(Endpoint):
     def get(self) -> CategoryDetails:
         response: Response = self._get()
         return CategoryDetails(**response.json())
+
+
+class AllCategoriesEndpoint(Endpoint):
+    """
+    This endpoint returns all Yelp business categories across all locales by default. Include the "locale" parameter to
+    filter to only those categories available for a particular locale, and translate/localize the names of those
+    categories.
+    """
+
+    _path: str = "/categories"
+
+    locale: Optional[str]
+    """
+    Optional. Specify the locale to filter the categories returned to only those available in that locale, and to
+    translate the names of the categories appropriately. See
+    :py:class:`~yelpfusion3.endpoint.SupportedLocales`. If not included, all categories across all locales will be
+    returned and the category names will be in English.
+    """
+
+    def get(self) -> Categories:
+        response: Response = self._get()
+        return Categories(**response.json())

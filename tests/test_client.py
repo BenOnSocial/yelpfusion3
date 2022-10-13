@@ -20,8 +20,8 @@ from yelpfusion3.business.model import (
     Reviews,
     TransactionSearch,
 )
-from yelpfusion3.category.endpoint import CategoryDetailsEndpoint
-from yelpfusion3.category.model import CategoryDetails
+from yelpfusion3.category.endpoint import AllCategoriesEndpoint, CategoryDetailsEndpoint
+from yelpfusion3.category.model import Categories, CategoryDetails
 from yelpfusion3.client import Client
 from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 from yelpfusion3.event.model import Event, EventSearch
@@ -266,3 +266,11 @@ class TestClient:
         assert category_details.category.parent_aliases[0] == "active"
         assert not category_details.category.country_whitelist
         assert not category_details.category.country_blacklist
+
+    def test_all_categories(self) -> None:
+        all_categories_endpoint: AllCategoriesEndpoint = Client.all_categories()
+
+        categories: Categories = all_categories_endpoint.get()
+
+        assert len(categories.categories) > 0
+        # Not much else can viably do here since the collection of categories is massive.
