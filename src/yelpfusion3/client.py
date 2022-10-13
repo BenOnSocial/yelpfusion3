@@ -13,6 +13,7 @@ from yelpfusion3.business.endpoint import (
     ReviewsEndpoint,
     TransactionSearchEndpoint,
 )
+from yelpfusion3.category.endpoint import CategoryDetailsEndpoint
 from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 
 
@@ -25,7 +26,7 @@ class Client:
 
     @staticmethod
     def business_details(
-        business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)
+        business_id: constr(strip_whitespace=True, min_length=1, regex=r"^[A-Za-z0-9\-]+$")
     ) -> BusinessDetailsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessDetailsEndpoint` object used to interact with
@@ -41,11 +42,11 @@ class Client:
 
     @staticmethod
     def business_matches(
-        name: constr(min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"),
-        address1: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$"),
-        city: constr(min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$"),
-        state: constr(min_length=2, max_length=3, to_upper=True),
-        country: constr(min_length=2, max_length=2, to_upper=True),
+        name: constr(strip_whitespace=True, min_length=1, max_length=64, regex=r"^[\da-zA-Z\s\!#$%&+,./:?@']+$"),
+        address1: constr(strip_whitespace=True, min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'/#&,.:]+$"),
+        city: constr(strip_whitespace=True, min_length=0, max_length=64, regex=r"^[\da-zA-Z\s'.()]+$"),
+        state: constr(strip_whitespace=True, min_length=2, max_length=3, to_upper=True),
+        country: constr(strip_whitespace=True, min_length=2, max_length=2, to_upper=True),
     ) -> BusinessMatchesEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.BusinessMatchesEndpoint` object used to interact with
@@ -79,7 +80,7 @@ class Client:
 
     @staticmethod
     def business_search(
-        location: Optional[constr(min_length=1, strip_whitespace=True)] = None,
+        location: Optional[constr(strip_whitespace=True, min_length=1)] = None,
         latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
         longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> BusinessSearchEndpoint:
@@ -123,7 +124,7 @@ class Client:
         return PhoneSearchEndpoint(phone=phone)
 
     @staticmethod
-    def reviews(business_id: constr(min_length=1, regex=r"^[A-Za-z0-9\-]+$", strip_whitespace=True)) -> ReviewsEndpoint:
+    def reviews(business_id: constr(strip_whitespace=True, min_length=1, regex=r"^[A-Za-z0-9\-]+$")) -> ReviewsEndpoint:
         """
         Creates a new :py:class:`~yelpfusion3.business.endpoint.ReviewsEndpoint` object used to interact with the Yelp
         Reviews REST endpoint.
@@ -220,7 +221,7 @@ class Client:
 
     @staticmethod
     def featured_event(
-        location: Optional[constr(min_length=1, strip_whitespace=True)] = None,
+        location: Optional[constr(strip_whitespace=True, min_length=1)] = None,
         latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
         longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> FeaturedEventEndpoint:
@@ -245,3 +246,17 @@ class Client:
             return FeaturedEventEndpoint(latitude=latitude, longitude=longitude)
         else:
             raise ValueError("Missing required argument(s).")
+
+    @staticmethod
+    def category_details(alias: constr(strip_whitespace=True, min_length=1)) -> CategoryDetailsEndpoint:
+        """
+        Creates a new :py:class:`~yelpfusion3.category.endpoint.CategoryDetailsEndpoint` object used to interact with
+        the Yelp Category Details REST endpoint.
+
+        :param alias: The alias of the category.
+        :type alias: str
+        :return: An endpoint wrapper for the Yelp Category Details REST endpoint.
+        :rtype: CategoryDetailsEndpoint
+        """
+
+        return CategoryDetailsEndpoint(alias=alias)

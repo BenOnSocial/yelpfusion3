@@ -20,6 +20,8 @@ from yelpfusion3.business.model import (
     Reviews,
     TransactionSearch,
 )
+from yelpfusion3.category.endpoint import CategoryDetailsEndpoint
+from yelpfusion3.category.model import CategoryDetails
 from yelpfusion3.client import Client
 from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 from yelpfusion3.event.model import Event, EventSearch
@@ -252,3 +254,15 @@ class TestClient:
     def test_featured_event_missing_longitude(self) -> None:
         with pytest.raises(ValueError):
             Client.featured_event(latitude=37.7726402)
+
+    def test_category_details(self) -> None:
+        category_details_endpoint: CategoryDetailsEndpoint = Client.category_details(alias="archery")
+
+        category_details: CategoryDetails = category_details_endpoint.get()
+
+        assert category_details.category.alias == "archery"
+        assert category_details.category.title == "Archery"
+        assert len(category_details.category.parent_aliases) == 1
+        assert category_details.category.parent_aliases[0] == "active"
+        assert not category_details.category.country_whitelist
+        assert not category_details.category.country_blacklist

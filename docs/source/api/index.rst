@@ -28,6 +28,21 @@ Models
 .. automodule:: yelpfusion3.event.model
    :members:
 
+Category Endpoints
+==================
+
+Endpoints
+---------
+
+.. automodule:: yelpfusion3.category.endpoint
+   :members:
+
+Models
+------
+
+.. automodule:: yelpfusion3.category.model
+   :members:
+
 Client
 ======
 
