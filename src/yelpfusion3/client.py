@@ -171,6 +171,20 @@ class Client:
         latitude: Optional[confloat(ge=-90.0, le=90.0)] = None,
         longitude: Optional[confloat(ge=-180.0, le=180.0)] = None,
     ) -> AutocompleteEndpoint:
+        """
+
+        :param text: Required. Text to return autocomplete suggestions for.
+        :type text: str
+        :param latitude: Required if want to get autocomplete suggestions for businesses. Latitude of the location to
+            look for business autocomplete suggestions.
+        :type latitude: float
+        :param longitude: Required if want to get autocomplete suggestions for businesses. Longitude of the location to
+            look for business autocomplete suggestions.
+        :type longitude: float
+        :return: An endpoint wrapper for the Yelp Autocomplete REST endpoint.
+        :rtype: AutocompleteEndpoint
+        """
+
         if latitude and longitude:
             return AutocompleteEndpoint(text=text, latitude=latitude, longitude=longitude)
         else:
