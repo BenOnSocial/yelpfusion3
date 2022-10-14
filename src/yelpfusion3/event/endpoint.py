@@ -105,7 +105,6 @@ class EventSearchEndpoint(Endpoint):
 
     def get(self) -> EventSearch:
         response: Response = self._get()
-        print(response.json())
         return EventSearch(**response.json())
 
     @validator("categories")
