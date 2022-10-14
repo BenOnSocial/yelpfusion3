@@ -39,16 +39,15 @@ your API key to the `yelpfusion3` client.
 .. code-block:: python
    :caption: Get details for a business using its unique Yelp business ID
 
-   from yelpfusion3.client import Client
-   from yelpfusion3.endpoint.businessdetailsendpoint import BusinessDetailsEndpoint
-   from yelpfusion3.model.business.businessdetails import BusinessDetails
-
-   # Get business details for Gary Danko in San Francisco using its Yelp business ID.
-   business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(
-       "WavvLdfdP6g8aZTtbBQHTw"
-   )
-
-   business_details: BusinessDetails = business_details_endpoint.get()
+   >>> from yelpfusion3.client import Client
+   >>> from yelpfusion3.business.endpoint import BusinessDetailsEndpoint
+   >>> from yelpfusion3.business.model import BusinessDetails
+   >>> business_details_endpoint: BusinessDetailsEndpoint = Client.business_details(business_id="WavvLdfdP6g8aZTtbBQHTw")
+   >>> business_details_endpoint
+   BusinessDetailsEndpoint(business_id='WavvLdfdP6g8aZTtbBQHTw', locale=None)
+   >>> business_details: BusinessDetails = business_details_endpoint.get()
+   >>> business_details
+   BusinessDetails(id='WavvLdfdP6g8aZTtbBQHTw', alias='gary-danko-san-francisco', name='Gary Danko', image_url=HttpUrl('https://s3-media3.fl.yelpcdn.com/bphoto/eyYUz3Xl7NtcJeN7x7SQwg/o.jpg', ), is_claimed=True, is_closed=False, url=HttpUrl('https://www.yelp.com/biz/gary-danko-san-francisco?adjust_creative=iLXKG_naOtwkmDCMRoHImA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=iLXKG_naOtwkmDCMRoHImA', ), phone='+14157492060', display_phone='(415) 749-2060', review_count=5748, categories=[Category(alias='newamerican', title='American (New)'), Category(alias='french', title='French'), Category(alias='wine_bars', title='Wine Bars')], rating=4.5, location=Location(address1='800 N Point St', address2='', address3='', city='San Francisco', state='CA', zip_code='94109', country='US', display_address=['800 N Point St', 'San Francisco, CA 94109'], cross_streets=''), coordinates=Coordinates(latitude=37.80587, longitude=-122.42058), photos=[HttpUrl('https://s3-media3.fl.yelpcdn.com/bphoto/eyYUz3Xl7NtcJeN7x7SQwg/o.jpg', ), HttpUrl('https://s3-media4.fl.yelpcdn.com/bphoto/1qgI44xDsgZyXxtcFgMeRQ/o.jpg', ), HttpUrl('https://s3-media3.fl.yelpcdn.com/bphoto/wVGFtORjtBK8-7G-T-PmGg/o.jpg', )], price='$$$$', hours=[Hours(open=[DetailedHours(is_overnight=False, start='1700', end='2200', day=0), DetailedHours(is_overnight=False, start='1700', end='2200', day=3), DetailedHours(is_overnight=False, start='1700', end='2200', day=4), DetailedHours(is_overnight=False, start='1700', end='2200', day=5), DetailedHours(is_overnight=False, start='1700', end='2200', day=6)], hours_type='REGULAR', is_open_now=False)], transactions=[], special_hours=None)
 
 License
 -------
