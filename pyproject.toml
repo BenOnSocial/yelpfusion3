@@ -130,7 +130,7 @@ dependencies = [
 ]
 [tool.hatch.envs.publish.scripts]
 testpypi = "python3 -m twine upload --repository testpypi dist/*"
-pypi = "python3 -m twine upload --repository pypi dist/*'"
+pypi = "python3 -m twine upload --repository pypi dist/*"
 
 
 [tool.black]
