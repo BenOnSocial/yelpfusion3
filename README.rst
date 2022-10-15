@@ -37,7 +37,6 @@ is currently the only supported method for supplying
 your API key to the `yelpfusion3` client.
 
 .. code-block:: python
-   :caption: Get details for a business using its unique Yelp business ID
 
    >>> from yelpfusion3.client import Client
    >>> from yelpfusion3.business.endpoint import BusinessDetailsEndpoint
