@@ -1,6 +1,9 @@
 yelpfusion3 Documentation
 =========================
 
+.. image:: https://badge.fury.io/py/yelpfusion3.svg
+   :alt: PyPi
+
 .. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
    :alt: CI build
 
