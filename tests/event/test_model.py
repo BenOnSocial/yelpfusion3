@@ -92,6 +92,12 @@ class TestEvent:
         assert event.location.cross_streets == "Opera Aly & 3rd St"
         assert event.business_id == "yerba-buena-center-for-the-arts-san-francisco"
 
+    def test_category_fails_validation(self) -> None:
+        event: Event = Event(**self.test_data)
+
+        with pytest.raises(ValueError):
+            event.category = "not-a-valid-category"
+
 
 class TestEventSearch:
     test_data: Dict = {
