@@ -2,20 +2,25 @@ yelpfusion3 Documentation
 =========================
 
 .. meta::
+
    :description: yelpfusion3 is a Python 3 client library for Yelp Fusion API v3.
    :keywords: yelp, fusion, api, client, library, python, python3
 
-.. image:: https://badge.fury.io/py/yelpfusion3.svg
-   :alt: PyPi
+.. container:: badges
 
-.. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
-   :alt: CI build
+   .. image:: https://badge.fury.io/py/yelpfusion3.svg
+      :alt: PyPi
+      :target: https://pypi.org/project/yelpfusion3/
 
-.. image:: https://codecov.io/gh/BenOnSocial/yelpfusion3/branch/main/graph/badge.svg?token=LFX14ACT4Y
-   :alt: Code Coverage
+   .. image:: https://dl.circleci.com/status-badge/img/gh/BenOnSocial/yelpfusion3/tree/main.svg?style=shield
+      :alt: CI build
 
-.. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
-   :alt: Documentation Status
+   .. image:: https://codecov.io/gh/BenOnSocial/yelpfusion3/branch/main/graph/badge.svg?token=LFX14ACT4Y
+      :alt: Code Coverage
+
+   .. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
+      :alt: Documentation Status
+      :target: https://yelpfusion3.readthedocs.io/en/latest/index.html
 
 *yelpfusion3* is a Python 3 client library for
 `Yelp Fusion API v3 <https://www.yelp.com/developers/documentation/v3/get_started>`_. The API provides Python developers

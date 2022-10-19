@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath("../../src/"))
 project = "yelpfusion3"
 copyright = "2022, Ben Tran"
 author = "Ben Tran"
-release = "0.0.1"
+release = "0.0.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -32,7 +32,8 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = []
+html_static_path = ["_static"]
+html_css_files = ["css/site.css"]
 
 # See https://sphinx-rtd-theme.readthedocs.io/en/stable/configuring.html for details.
 html_theme_options = {
