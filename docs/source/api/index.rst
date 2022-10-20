@@ -16,6 +16,13 @@ Models
 Event Endpoints
 ===============
 
+.. important::
+
+   The Event endpoints are only through the Yelp Developer Beta program.
+
+   Sign up for the Yelp Developer Beta program on the `Manage App <https://www.yelp.com/developers/v3/manage_app>`_ page
+   and click the `Join` button.
+
 Endpoints
 ---------
 
@@ -30,6 +37,13 @@ Models
 
 Category Endpoints
 ==================
+
+.. important::
+
+   The Category endpoints are only through the Yelp Developer Beta program.
+
+   Sign up for the Yelp Developer Beta program on the `Manage App <https://www.yelp.com/developers/v3/manage_app>`_ page
+   and click the `Join` button.
 
 Endpoints
 ---------
