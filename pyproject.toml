@@ -118,6 +118,8 @@ build = "(cd docs && make html)"
 exclude = [
     ".circleci",
     ".github",
+    ".readthedocs.yaml",
+    "docs",
 ]
 
 
