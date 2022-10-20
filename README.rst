@@ -1,5 +1,5 @@
-yelpfusion3 Documentation
-=========================
+Yelp Fusion API v3 Python Client
+================================
 
 .. meta::
 
@@ -17,6 +17,7 @@ yelpfusion3 Documentation
 
    .. image:: https://codecov.io/gh/BenOnSocial/yelpfusion3/branch/main/graph/badge.svg?token=LFX14ACT4Y
       :alt: Code Coverage
+      :target: https://codecov.io/gh/BenOnSocial/yelpfusion3
 
    .. image:: https://readthedocs.org/projects/yelpfusion3/badge/?version=latest
       :alt: Documentation Status
