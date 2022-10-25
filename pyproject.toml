@@ -68,6 +68,7 @@ all = [
 detached = true
 dependencies = [
     "autoflake",
+    "bandit",
     "black",
     "flake8",
     "isort",
@@ -78,6 +79,7 @@ dependencies = [
 check = [
     "python -m mypy src tests --html-report build/report/mypy",
     "python -m flake8",
+    "bandit -r src",
 ]
 format = [
     "python -m autoflake --in-place --recursive docs/source/conf.py src/yelpfusion3 tests",
