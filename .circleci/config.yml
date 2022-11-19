@@ -50,7 +50,7 @@ commands:
     steps:
       - run:
           name: Run tests
-          command: python -m hatch run test:cov
+          command: python -m hatch run cov
       - run:
           name: Publish test coverage
           command: python -m hatch run test:publish
