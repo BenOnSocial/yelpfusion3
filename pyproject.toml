@@ -128,19 +128,8 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 
 
-[tool.hatch.envs.publish]
-dependencies = [
-    "twine",
-]
-[tool.hatch.envs.publish.scripts]
-testpypi = [
-    "python3 -m twine check dist/*",
-    "python3 -m twine upload --repository testpypi dist/*",
-]
-pypi = [
-    "python3 -m twine check dist/*",
-    "python3 -m twine upload --repository pypi dist/*",
-]
+[tool.hatch.publish.index]
+disable = false
 
 
 [tool.black]

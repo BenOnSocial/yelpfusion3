@@ -84,14 +84,14 @@ commands:
           steps:
             - run:
                 name: Publish to TestPyPi index
-                command: python -m hatch run publish:testpypi
+                command: python -m hatch publish --repo test
       - when:
           condition:
             not: << parameters.test >>
           steps:
             - run:
                 name: Publish to PyPi index
-                command: python -m hatch run publish:pypi
+                command: python -m hatch publish
 
 
 jobs:
