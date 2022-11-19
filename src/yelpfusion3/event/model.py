@@ -37,12 +37,12 @@ class Event(Model):
     Detailed information for a specific Yelp event.
     """
 
-    attending_count: NonNegativeInt
+    attending_count: Optional[NonNegativeInt] = None
     """
     Number of Yelp users attending this event.
     """
 
-    category: str
+    category: Optional[str] = None
     """
     The category of this event.
     """
@@ -57,57 +57,57 @@ class Event(Model):
     Maximum cost of attending this event.
     """
 
-    description: str
+    description: Optional[str] = None
     """
     Detailed description of this event.
     """
 
-    event_site_url: HttpUrl
+    event_site_url: Optional[HttpUrl] = None
     """
     Yelp page of this event.
     """
 
-    id: constr(min_length=1)
+    id: Optional[constr(min_length=1)] = None
     """
     Event id.
     """
 
-    image_url: HttpUrl
+    image_url: Optional[HttpUrl] = None
     """
     Yelp image URL of this event.
     """
 
-    interested_count: NonNegativeInt
+    interested_count: Optional[NonNegativeInt] = None
     """
     Number of Yelp users interested in attending this event.
     """
 
-    is_canceled: bool
+    is_canceled: Optional[bool] = None
     """
     Whether this event is canceled.
     """
 
-    is_free: bool
+    is_free: Optional[bool] = None
     """
     Whether this event is free.
     """
 
-    is_official: bool
+    is_official: Optional[bool] = None
     """
     Whether this event is created by a Yelp community manager.
     """
 
-    latitude: confloat(ge=-90.0, le=90.0)
+    latitude: Optional[confloat(ge=-90.0, le=90.0)] = None
     """
     Latitude of this event.
     """
 
-    longitude: confloat(ge=-180.0, le=180.0)
+    longitude: Optional[confloat(ge=-180.0, le=180.0)] = None
     """
     Longitude of this event.
     """
 
-    name: constr(min_length=1)
+    name: Optional[constr(min_length=1)] = None
     """
     Name of this event.
     """
@@ -122,12 +122,12 @@ class Event(Model):
     Time this event ends. Returns date and time in ISO 8601 format: ``YYYY-MM-DDTHH:MM:SS+HH:MM``.
     """
 
-    time_start: str
+    time_start: Optional[str] = None
     """
     Time this event starts. Returns date and time in ISO 8601 format: ``YYYY-MM-DDTHH:MM:SS+HH:MM``.
     """
 
-    location: Location
+    location: Optional[Location] = None
     """
     Location object of the event. Includes address, city, state, zip code and country.
     """
