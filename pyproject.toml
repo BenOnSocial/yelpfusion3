@@ -76,6 +76,7 @@ dependencies = [
     "pylint",
     "pylint-pydantic",
     "types-requests",
+    "yelpfusion3",  # Temporary hack to include the main project's dependencies. Need to find a more elegant approach.
 ]
 [tool.hatch.envs.style.scripts]
 check = [
