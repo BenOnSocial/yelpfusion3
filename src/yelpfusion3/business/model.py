@@ -130,7 +130,7 @@ class Business(Model):
     """
 
     @validator("distance")
-    def _check_distance(cls, value: float) -> float:    # pylint: disable=E0213
+    def _check_distance(cls, value: float) -> float:  # pylint: disable=E0213
         """
         Checks that ``distance`` is non-negative.
 
@@ -188,14 +188,14 @@ class DetailedHours(Model):
     """
 
     @validator("start")
-    def _check_start(cls, value: str) -> str:   # pylint: disable=E0213
+    def _check_start(cls, value: str) -> str:  # pylint: disable=E0213
         int_value = int(value)
         if 0 <= int_value <= 2400:
             return value
         raise ValueError("Not a valid start time.")
 
     @validator("end")
-    def _check_end(cls, value: str) -> str:     # pylint: disable=E0213
+    def _check_end(cls, value: str) -> str:  # pylint: disable=E0213
         int_value = int(value)
         if 0 <= int_value <= 2400:
             return value
@@ -256,7 +256,7 @@ class SpecialHours(Model):
     """
 
     @validator("date")
-    def _check_date(cls, value: str) -> str:    # pylint: disable=E0213
+    def _check_date(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Validates the date field for proper format. (YY-MM-DD)
 
@@ -271,7 +271,7 @@ class SpecialHours(Model):
         return value
 
     @validator("start")
-    def _check_start(cls, value: str) -> str:   # pylint: disable=E0213
+    def _check_start(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Validates the start field for proper format and checks that it properly represents a time. (HHMM)
 
@@ -287,7 +287,7 @@ class SpecialHours(Model):
         raise ValueError("Not a valid start time.")
 
     @validator("end")
-    def _check_end(cls, value: str) -> str:     # pylint: disable=E0213
+    def _check_end(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Validates the end field for proper format and checks that it properly represents a time. (HHMM)
 

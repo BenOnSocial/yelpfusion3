@@ -150,7 +150,7 @@ class Event(Model):
     """
 
     @validator("category")
-    def _check_category(cls, value: str) -> str:    # pylint: disable=E0213
+    def _check_category(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Checks that ``value`` is a supported category.
 

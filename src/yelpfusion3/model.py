@@ -8,7 +8,7 @@ import pycountry
 from pydantic import BaseModel, constr, validator
 
 
-class Model(BaseModel):     # pylint: disable=too-few-public-methods
+class Model(BaseModel):  # pylint: disable=too-few-public-methods
     """
     Basic base class for all model implementations.
     """
@@ -71,7 +71,7 @@ class Location(Model):
     """
 
     @validator("country")
-    def _check_country(cls, value: str) -> str:     # pylint: disable=E0213
+    def _check_country(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Checks that ``value`` is a valid ISO 3166- alpha-2 country code.
 

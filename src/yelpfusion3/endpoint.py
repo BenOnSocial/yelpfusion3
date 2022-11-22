@@ -14,7 +14,7 @@ from yelpfusion3.model import Model
 from yelpfusion3.settings import Settings
 
 
-class SupportedLocales:     # pylint: disable=too-few-public-methods
+class SupportedLocales:  # pylint: disable=too-few-public-methods
     """
     A collection of locales supported by the Yelp Fusion API.
     """
@@ -248,7 +248,7 @@ class Endpoint(BaseModel):
     Basic base class for all endpoint implementations.
     """
 
-    class Config:   # pylint: disable=C0115,too-few-public-methods
+    class Config:  # pylint: disable=C0115,too-few-public-methods
         anystr_strip_whitespace = True
         min_anystr_length = 1
         validate_assignment = True
