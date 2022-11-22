@@ -74,6 +74,7 @@ dependencies = [
     "isort",
     "mypy[reports]",
     "pylint",
+    "pylint-pydantic",
     "types-requests",
 ]
 [tool.hatch.envs.style.scripts]
