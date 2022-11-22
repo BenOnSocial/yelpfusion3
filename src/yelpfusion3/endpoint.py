@@ -1,3 +1,7 @@
+"""
+Shared endpoint abstractions used by multiple Yelp Fusion v3 endpoints.
+"""
+
 from abc import abstractmethod
 from typing import Dict, List
 from urllib.parse import quote, urlencode
@@ -10,7 +14,7 @@ from yelpfusion3.model import Model
 from yelpfusion3.settings import Settings
 
 
-class SupportedLocales:
+class SupportedLocales:     # pylint: disable=too-few-public-methods
     """
     A collection of locales supported by the Yelp Fusion API.
     """
@@ -244,7 +248,7 @@ class Endpoint(BaseModel):
     Basic base class for all endpoint implementations.
     """
 
-    class Config:
+    class Config:   # pylint: disable=C0115,too-few-public-methods
         anystr_strip_whitespace = True
         min_anystr_length = 1
         validate_assignment = True
@@ -254,7 +258,7 @@ class Endpoint(BaseModel):
     @property
     def url(self) -> str:
         """
-        Constructs a URL to the business search endpoint with the given query parameters.
+        Constructs a URL to the endpoint with the given query parameters.
 
         :return: Yelp Fusion API 3 endpoint URL.
         :rtype: str
@@ -268,23 +272,26 @@ class Endpoint(BaseModel):
 
     @abstractmethod
     def get(self) -> Model:
-        pass  # pragma: no cover
+        """
+        Performs a GET request to the endpoint with the configured query parameters.
+        :return:
+        """
 
     def _get(self) -> Response:
-        return requests.get(url=self.url, headers=Settings().headers)
+        return requests.get(url=self.url, headers=Settings().headers, timeout=20)
 
     @validator("locale", check_fields=False)
-    def _check_locale(cls, v: str) -> str:
+    def _check_locale(cls, value: str) -> str:  # pylint: disable=E0213
         """
         Validates that the locale is supported by Yelp Fusion API 3.
         See https://www.yelp.com/developers/documentation/v3/supported_locales
 
-        :param v: Locale of the response body.
-        :type v: str
-        :raise ValueError: "v" is an unsupported locale value.
-        :return: "v" if it's a supported locale.
+        :param value: Locale of the response body.
+        :type value: str
+        :raise ValueError: "value" is an unsupported locale value.
+        :return: "value" if it's a supported locale.
         :rtype: str
         """
-        if v not in SupportedLocales.codes():
+        if value not in SupportedLocales.codes():
             raise ValueError("Unsupported 'locale' value.")
-        return v
+        return value

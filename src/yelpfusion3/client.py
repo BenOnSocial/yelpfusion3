@@ -1,3 +1,7 @@
+"""
+A Python client for the Yelp Fusion v3 API.
+"""
+
 from __future__ import annotations
 
 from typing import Optional
@@ -14,7 +18,6 @@ from yelpfusion3.business.endpoint import (
     TransactionSearchEndpoint,
 )
 from yelpfusion3.category.endpoint import AllCategoriesEndpoint, CategoryDetailsEndpoint
-from yelpfusion3.category.model import Categories
 from yelpfusion3.event.endpoint import EventLookupEndpoint, EventSearchEndpoint, FeaturedEventEndpoint
 
 
@@ -104,10 +107,11 @@ class Client:
 
         if location:
             return BusinessSearchEndpoint(location=location)
-        elif latitude and longitude:
+
+        if latitude and longitude:
             return BusinessSearchEndpoint(latitude=latitude, longitude=longitude)
-        else:
-            raise ValueError("Missing required argument(s).")
+
+        raise ValueError("Missing required argument(s).")
 
     @staticmethod
     def phone_search(phone: constr(strip_whitespace=True, min_length=12, regex=r"^\+\d+")) -> PhoneSearchEndpoint:
@@ -162,10 +166,11 @@ class Client:
 
         if location:
             return TransactionSearchEndpoint(location=location)
-        elif latitude and longitude:
+
+        if latitude and longitude:
             return TransactionSearchEndpoint(latitude=latitude, longitude=longitude)
-        else:
-            raise ValueError("Missing required argument(s).")
+
+        raise ValueError("Missing required argument(s).")
 
     @staticmethod
     def autocomplete(
@@ -191,8 +196,8 @@ class Client:
 
         if latitude and longitude:
             return AutocompleteEndpoint(text=text, latitude=latitude, longitude=longitude)
-        else:
-            return AutocompleteEndpoint(text=text)
+
+        return AutocompleteEndpoint(text=text)
 
     @staticmethod
     def event_search() -> EventSearchEndpoint:
@@ -243,10 +248,11 @@ class Client:
 
         if location:
             return FeaturedEventEndpoint(location=location)
-        elif latitude and longitude:
+
+        if latitude and longitude:
             return FeaturedEventEndpoint(latitude=latitude, longitude=longitude)
-        else:
-            raise ValueError("Missing required argument(s).")
+
+        raise ValueError("Missing required argument(s).")
 
     @staticmethod
     def category_details(alias: constr(strip_whitespace=True, min_length=1)) -> CategoryDetailsEndpoint:

@@ -1,3 +1,7 @@
+"""
+Abstractions for Yelp Fusion event endpoints.
+"""
+
 from datetime import datetime
 from typing import List, Literal, Optional
 from urllib.parse import urlencode
@@ -37,16 +41,16 @@ class EventSearchEndpoint(Endpoint):
     """
     Optional. Sort by either descending or ascending order. By default, it returns results in descending order.
     Possible values are:
-    
+
         ``desc`` - sort by descending order
-        
+
         ``asc`` - sort by ascending order
     """
 
     sort_on: Optional[Literal["popularity", "time_start"]] = None
     """
     Optional. Sort on popularity or time start. By default, sorts on ``popularity``. Possible values are:
-    
+
         ``popularity``
 
         ``time_start``
@@ -108,12 +112,12 @@ class EventSearchEndpoint(Endpoint):
         return EventSearch(**response.json())
 
     @validator("categories")
-    def _check_categories(cls, v: str) -> str:
+    def _check_categories(cls, value: str) -> str:  # pylint: disable=E0213
         """
-        Checks that ``v`` is a valid list of supported categories.
+        Checks that ``value`` is a valid list of supported categories.
 
-        :param v: Comma-separated list of categories.
-        :type v: str
+        :param value: Comma-separated list of categories.
+        :type value: str
         :raise ValueError: If at least one category in the list is unsupported.
         :return: A normalized list of categories.
         :rtype: str
@@ -121,7 +125,7 @@ class EventSearchEndpoint(Endpoint):
 
         # We could have done the validation in the "regex" argument to constr(), but it would be a lot more complicated
         # and not very readable.
-        categories: List[str] = [category.strip() for category in v.split(sep=",") if category.strip()]
+        categories: List[str] = [category.strip() for category in value.split(sep=",") if category.strip()]
 
         if all(SupportedCategories.contains(category) for category in categories):
             return ",".join(categories)
@@ -162,8 +166,8 @@ class EventLookupEndpoint(Endpoint):
 
         if parameters:
             return f"{settings.base_url}{path}?{parameters}"
-        else:
-            return f"{settings.base_url}{path}"
+
+        return f"{settings.base_url}{path}"
 
     def get(self) -> Event:
         response: Response = self._get()

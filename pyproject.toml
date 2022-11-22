@@ -73,6 +73,7 @@ dependencies = [
     "flake8",
     "isort",
     "mypy[reports]",
+    "pylint",
     "types-requests",
 ]
 [tool.hatch.envs.style.scripts]
@@ -80,6 +81,7 @@ check = [
     "python -m mypy src tests --html-report build/report/mypy",
     "python -m flake8",
     "bandit -r src",
+    "pylint src",
 ]
 format = [
     "python -m autoflake --in-place --recursive docs/source/conf.py src/yelpfusion3 tests",
@@ -179,6 +181,11 @@ show_error_codes = true
 strict_optional = false
 warn_return_any = true
 warn_unused_configs = true
+
+
+[tool.pylint]
+format.max-line-length = 120
+"MESSAGE CONTROL".extension-pkg-whitelist = "pydantic"
 
 
 [tool.pytest.ini_options]

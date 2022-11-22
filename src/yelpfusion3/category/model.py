@@ -1,3 +1,7 @@
+"""
+Model abstractions for Yelp Fusion category endpoints.
+"""
+
 from typing import List
 
 from pydantic import constr

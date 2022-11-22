@@ -1,3 +1,7 @@
+"""
+Model abstractions for Yelp Fusion event endpoints.
+"""
+
 from typing import Dict, List, Literal, Optional, Union
 
 from pydantic import HttpUrl, NonNegativeInt, confloat, constr, validator
@@ -5,7 +9,7 @@ from pydantic import HttpUrl, NonNegativeInt, confloat, constr, validator
 from yelpfusion3.model import Location, Model
 
 
-class SupportedCategories:
+class SupportedCategories:  # pylint: disable=too-few-public-methods
     """
     A collection of categories supported by the Yelp Fusion API's Event Search endpoint.
     See `Supported Categories <https://www.yelp.com/developers/documentation/v3/event_categories_list>`_
@@ -29,6 +33,14 @@ class SupportedCategories:
 
     @staticmethod
     def contains(value: constr(strip_whitespace=True, to_lower=True, min_length=1)) -> bool:
+        """
+        Checks that ``value`` is a category supported by the Yelp Fusion API's Event search endpoint.
+
+        :param value: The category alias to check.
+        :type value: str
+        :return: True if the category alias is supported.
+        :rtype: bool
+        """
         return value in SupportedCategories.categories.values()
 
 
@@ -138,12 +150,12 @@ class Event(Model):
     """
 
     @validator("category")
-    def _check_category(cls, v: str) -> str:
+    def _check_category(cls, value: str) -> str:    # pylint: disable=E0213
         """
-        Checks that ``v`` is a supported category.
+        Checks that ``value`` is a supported category.
 
-        :param v: Category alias.
-        :type v: str
+        :param value: Category alias.
+        :type value: str
         :raise ValueError: If the category is unsupported.
         :return: The category alias.
         :rtype: str
@@ -151,8 +163,8 @@ class Event(Model):
 
         # We could have done the validation in the "regex" argument to constr(), but it would be a lot more complicated
         # and not very readable.
-        if SupportedCategories.contains(v):
-            return v
+        if SupportedCategories.contains(value):
+            return value
 
         raise ValueError("'category' is set to an unsupported category.")
 

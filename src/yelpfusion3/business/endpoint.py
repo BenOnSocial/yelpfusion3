@@ -1,3 +1,7 @@
+"""
+Abstractions for Yelp Fusion business endpoints.
+"""
+
 from typing import List, Literal, Optional
 from urllib.parse import urlencode
 
@@ -59,8 +63,8 @@ class BusinessDetailsEndpoint(Endpoint):
         settings: Settings = Settings()
         if parameters:
             return f"{settings.base_url}{self._path}/{self.business_id}?{parameters}"
-        else:
-            return f"{settings.base_url}{self._path}/{self.business_id}"
+
+        return f"{settings.base_url}{self._path}/{self.business_id}"
 
     def get(self) -> BusinessDetails:
         response: Response = self._get()
@@ -156,9 +160,9 @@ class BusinessMatchesEndpoint(Endpoint):
     ``none``, ``default`` or ``strict``.
 
         ``none``: Do not apply any match quality threshold; all potential business matches will be returned.
-        
+
         ``default``: Apply a match quality threshold such that only very closely matching businesses will be returned.
-        
+
         ``strict``: Apply a very strict match quality threshold.
     """
 
@@ -167,19 +171,19 @@ class BusinessMatchesEndpoint(Endpoint):
         return BusinessMatches(**response.json())
 
     @validator("country")
-    def check_country(cls, v: str) -> str:
+    def check_country(cls, value: str) -> str:  # pylint: disable=E0213
         """
-        Checks that "v" is a valid ISO 3166- alpha-2 country code.
+        Checks that "value" is a valid ISO 3166- alpha-2 country code.
 
-        :param v: Two-letter country code.
-        :type v: str
-        :raise ValueError: If "v" is an invalid country code.
-        :return: "v" if it passes validation.
+        :param value: Two-letter country code.
+        :type value: str
+        :raise ValueError: If "value" is an invalid country code.
+        :return: "value" if it passes validation.
         :rtype: str
         """
 
-        if pycountry.countries.get(alpha_2=v):
-            return v
+        if pycountry.countries.get(alpha_2=value):
+            return value
         raise ValueError("Not a valid ISO 3166-1 alpha-2 country code.")
 
 
@@ -282,23 +286,23 @@ class BusinessSearchEndpoint(Endpoint):
     attributes: Optional[str]
     """
     Optional. Try these additional filters to return specific search results!
-    
+
         ``hot_and_new`` - popular businesses which recently joined Yelp
-        
+
         ``request_a_quote`` - businesses which actively reply to Request a Quote inquiries
-        
+
         ``reservation`` - businesses with Yelp Reservations bookings enabled on their profile page
-        
+
         ``waitlist_reservation`` - businesses with Yelp Waitlist bookings enabled on their profile screen (iOS/Android)
-        
+
         ``deals`` - businesses offering Yelp Deals on their profile page
-        
+
         ``gender_neutral_restrooms`` - businesses which provide gender neutral restrooms
-        
+
         ``open_to_all`` - businesses which are Open To All
-        
+
         ``wheelchair_accessible`` - businesses which are Wheelchair Accessible
-        
+
         You can combine multiple attributes by providing a comma separated like ``attribute1,attribute2``. If multiple
         attributes are used, only businesses that satisfy ALL attributes will be returned in search results. For
         example, the attributes ``hot_and_new,request_a_quote`` will return businesses that are Hot and New AND offer
@@ -310,17 +314,17 @@ class BusinessSearchEndpoint(Endpoint):
         return BusinessSearch(**response.json())
 
     @validator("price")
-    def _check_price(cls, v: str) -> str:
-        if v and v.strip():
-            levels: List[str] = [level.strip() for level in v.split(sep=",")]
+    def _check_price(cls, value: str) -> str:   # pylint: disable=E0213
+        if value and value.strip():
+            levels: List[str] = [level.strip() for level in value.split(sep=",")]
             if all(validators.between(value=int(level), min=1, max=4) for level in levels):
                 return ",".join(levels)
         raise ValueError("Malformed 'price' value.")
 
     @validator("attributes")
-    def _check_attributes(cls, v: str) -> str:
-        if v and v.strip():
-            attributes: List[str] = [attribute.strip() for attribute in v.split(sep=",")]
+    def _check_attributes(cls, value: str) -> str:  # pylint: disable=E0213
+        if value and value.strip():
+            attributes: List[str] = [attribute.strip() for attribute in value.split(sep=",")]
             if all(
                 attribute
                 in [
@@ -403,8 +407,8 @@ class ReviewsEndpoint(Endpoint):
 
         if parameters:
             return f"{settings.base_url}{path}?{parameters}"
-        else:
-            return f"{settings.base_url}{path}"
+
+        return f"{settings.base_url}{path}"
 
     def get(self) -> Reviews:
         response: Response = self._get()

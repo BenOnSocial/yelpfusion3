@@ -1,3 +1,7 @@
+"""
+Abstractions for Yelp Fusion category endpoints.
+"""
+
 from typing import Optional
 from urllib.parse import urlencode
 
@@ -6,7 +10,6 @@ from requests import Response
 
 from yelpfusion3.category.model import Categories, CategoryDetails
 from yelpfusion3.endpoint import Endpoint
-from yelpfusion3.model import Model
 from yelpfusion3.settings import Settings
 
 
@@ -43,8 +46,8 @@ class CategoryDetailsEndpoint(Endpoint):
 
         if parameters:
             return f"{settings.base_url}{path}?{parameters}"
-        else:
-            return f"{settings.base_url}{path}"
+
+        return f"{settings.base_url}{path}"
 
     def get(self) -> CategoryDetails:
         response: Response = self._get()

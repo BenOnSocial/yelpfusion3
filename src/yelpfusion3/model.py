@@ -1,15 +1,19 @@
+"""
+Shared data models used by multiple Yelp Fusion v3 endpoints.
+"""
+
 from typing import List, Optional
 
 import pycountry
 from pydantic import BaseModel, constr, validator
 
 
-class Model(BaseModel):
+class Model(BaseModel):     # pylint: disable=too-few-public-methods
     """
     Basic base class for all model implementations.
     """
 
-    class Config:  # pragma: no cover
+    class Config:  # pragma: no cover   pylint: disable=C0115,too-few-public-methods
         anystr_strip_whitespace = True
         min_anystr_length = 0
         validate_assignment = True
@@ -67,17 +71,17 @@ class Location(Model):
     """
 
     @validator("country")
-    def _check_country(cls, v: str) -> str:
+    def _check_country(cls, value: str) -> str:     # pylint: disable=E0213
         """
-        Checks that ``v`` is a valid ISO 3166- alpha-2 country code.
+        Checks that ``value`` is a valid ISO 3166- alpha-2 country code.
 
-        :param v: Two-letter country code.
-        :type v: str
-        :raise ValueError: If ``v`` is an invalid country code.
-        :return: ``v`` if it passes validation.
+        :param value: Two-letter country code.
+        :type value: str
+        :raise ValueError: If ``value`` is an invalid country code.
+        :return: ``value`` if it passes validation.
         :rtype: str
         """
 
-        if pycountry.countries.get(alpha_2=v):
-            return v
+        if pycountry.countries.get(alpha_2=value):
+            return value
         raise ValueError("Not a valid ISO 3166-1 alpha-2 country code.")

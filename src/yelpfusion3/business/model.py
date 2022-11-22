@@ -1,3 +1,7 @@
+"""
+Model abstractions for Yelp Fusion business endpoints.
+"""
+
 from datetime import datetime
 from typing import List, Literal, Optional
 
@@ -126,34 +130,34 @@ class Business(Model):
     """
 
     @validator("distance")
-    def _check_distance(cls, v: float) -> float:
+    def _check_distance(cls, value: float) -> float:    # pylint: disable=E0213
         """
         Checks that ``distance`` is non-negative.
 
-        :param v: Distance in meters from the search location.
-        :type v: float
-        :raise ValueError: If ``v`` is a negative float.
-        :return: ``v`` if it's non-negative.
+        :param value: Distance in meters from the search location.
+        :type value: float
+        :raise ValueError: If ``value`` is a negative float.
+        :return: ``value`` if it's non-negative.
         :rtype: float
         """
-        if v <= 0.0:
+        if value <= 0.0:
             raise ValueError("Cannot have a negative distance.")
-        return v
+        return value
 
     @validator("rating")
-    def _check_rating(cls, v: float) -> float:
+    def _check_rating(cls, value: float) -> float:  # pylint: disable=E0213
         """
         Checks that the ``rating`` value is within the range of 1, 1.5, ... 4.5, 5.
 
-        :param v: Rating for the business.
-        :type v: float
-        :raise ValueError: If ``v`` not in the range of 1, 1.5, ... 4.5, 5.
-        :return: ``v`` if it's in the range of 1, 1.5, ... 4.5, 5.
+        :param value: Rating for the business.
+        :type value: float
+        :raise ValueError: If ``value`` not in the range of 1, 1.5, ... 4.5, 5.
+        :return: ``value`` if it's in the range of 1, 1.5, ... 4.5, 5.
         :rtype: float
         """
         # Avoid using NumPy for this. It's probably overkill here.
-        if v in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]:
-            return v
+        if value in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]:
+            return value
         raise ValueError("Invalid rating value.")
 
 
@@ -184,17 +188,17 @@ class DetailedHours(Model):
     """
 
     @validator("start")
-    def _check_start(cls, v: str) -> str:
-        value = int(v)
-        if 0 <= value <= 2400:
-            return v
+    def _check_start(cls, value: str) -> str:   # pylint: disable=E0213
+        int_value = int(value)
+        if 0 <= int_value <= 2400:
+            return value
         raise ValueError("Not a valid start time.")
 
     @validator("end")
-    def _check_end(cls, v: str) -> str:
-        value = int(v)
-        if 0 <= value <= 2400:
-            return v
+    def _check_end(cls, value: str) -> str:     # pylint: disable=E0213
+        int_value = int(value)
+        if 0 <= int_value <= 2400:
+            return value
         raise ValueError("Not a valid end time.")
 
 
@@ -252,50 +256,50 @@ class SpecialHours(Model):
     """
 
     @validator("date")
-    def _check_date(cls, v: str) -> str:
+    def _check_date(cls, value: str) -> str:    # pylint: disable=E0213
         """
         Validates the date field for proper format. (YY-MM-DD)
 
-        :param v: String representation of a calendar day. ("YY-MM-DD")
-        :type v: str
-        :raise ValueError: If ``v`` is a malformed string.
-        :return: ``v`` if it's a valid date string.
+        :param value: String representation of a calendar day. ("YY-MM-DD")
+        :type value: str
+        :raise ValueError: If ``value`` is a malformed string.
+        :return: ``value`` if it's a valid date string.
         :rtype: str
         """
         # If the date string is malformed, an exception will be raised so we don't need to.
-        datetime.strptime(v, "%Y-%m-%d")
-        return v
+        datetime.strptime(value, "%Y-%m-%d")
+        return value
 
     @validator("start")
-    def _check_start(cls, v: str) -> str:
+    def _check_start(cls, value: str) -> str:   # pylint: disable=E0213
         """
         Validates the start field for proper format and checks that it properly represents a time. (HHMM)
 
-        :param v: 4-digit string representing the time. (HHMM)
-        :type v: str
-        :raise ValueError: If ``v`` is outside of the 0000-2400 value range.
-        :return: ``v`` if it's a valid time string.
+        :param value: 4-digit string representing the time. (HHMM)
+        :type value: str
+        :raise ValueError: If ``value`` is outside of the 0000-2400 value range.
+        :return: ``value`` if it's a valid time string.
         :rtype: str
         """
-        value = int(v)
-        if 0 <= value <= 2400:
-            return v
+        int_value = int(value)
+        if 0 <= int_value <= 2400:
+            return value
         raise ValueError("Not a valid start time.")
 
     @validator("end")
-    def _check_end(cls, v: str) -> str:
+    def _check_end(cls, value: str) -> str:     # pylint: disable=E0213
         """
         Validates the end field for proper format and checks that it properly represents a time. (HHMM)
 
-        :param v: 4-digit string representing the time. (HHMM)
-        :type v: str
-        :raise ValueError: If ``v`` is outside of the 0000-2400 value range.
-        :return: ``v`` if it's a valid time string.
+        :param value: 4-digit string representing the time. (HHMM)
+        :type value: str
+        :raise ValueError: If ``value`` is outside of the 0000-2400 value range.
+        :return: ``value`` if it's a valid time string.
         :rtype: str
         """
-        value = int(v)
-        if 0 <= value <= 2400:
-            return v
+        int_value = int(value)
+        if 0 <= int_value <= 2400:
+            return value
         raise ValueError("Not a valid end time.")
 
 
@@ -403,19 +407,19 @@ class BusinessDetails(Model):
     """
 
     @validator("rating")
-    def _check_rating(cls, v: float) -> float:
+    def _check_rating(cls, value: float) -> float:  # pylint: disable=E0213
         """
         Checks that the ``rating`` value is within the range of 1, 1.5, ... 4.5, 5.
 
-        :param v: Rating for the business.
-        :type v: float
-        :raise ValueError: If ``v`` not in the range of 1, 1.5, ... 4.5, 5.
-        :return: ``v`` if it's in the range of 1, 1.5, ... 4.5, 5.
+        :param value: Rating for the business.
+        :type value: float
+        :raise ValueError: If ``value`` not in the range of 1, 1.5, ... 4.5, 5.
+        :return: ``value`` if it's in the range of 1, 1.5, ... 4.5, 5.
         :rtype: float
         """
         # Avoid using NumPy for this. It's probably overkill here.
-        if v in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]:
-            return v
+        if value in [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]:
+            return value
         raise ValueError("Invalid rating value.")
 
 
