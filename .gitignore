@@ -3,16 +3,17 @@
 /*.iml
 
 # Virtual Environments
-/.venv*
+.env*
 
 # Build Artifacts
-/build/
-/dist/
-/docs/build/
-/.mypy_cache
-/.pytest_cache
-/.coverage
+build/
+dist/
+docs/build/
+.mypy_cache
+.pytest_cache
+.coverage
 cobertura.xml
+coverage.xml
 __pycache__/
 
 # Miscellaneous
