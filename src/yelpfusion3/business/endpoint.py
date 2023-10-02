@@ -317,7 +317,7 @@ class BusinessSearchEndpoint(Endpoint):
     def _check_price(cls, value: str) -> str:  # pylint: disable=E0213
         if value and value.strip():
             levels: List[str] = [level.strip() for level in value.split(sep=",")]
-            if all(validators.between(value=int(level), min=1, max=4) for level in levels):
+            if all(validators.between(int(level), min_val=1, max_val=4) for level in levels):
                 return ",".join(levels)
         raise ValueError("Malformed 'price' value.")
 
