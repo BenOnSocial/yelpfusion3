@@ -13,7 +13,7 @@ authors = [
 requires-python = ">=3.9"
 dependencies = [
     "pycountry",
-    "pydantic==1.*",
+    "pydantic==1.10.13",
     "requests",
     "validators",
 ]
