@@ -175,9 +175,10 @@ multi_line_output = 3
 
 [tool.mypy]
 python_version = 3.9
-disable_error_code = "valid-type"
+disable_error_code = "call-arg,misc,valid-type"
 disallow_untyped_defs = true
 ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
 pretty = true
 show_error_codes = true
 strict_optional = false
@@ -186,6 +187,7 @@ warn_unused_configs = true
 
 
 [tool.pylint]
+disable = "E0611,E1123,R0903"
 format.max-line-length = 120
 "MESSAGE CONTROL".extension-pkg-whitelist = "pydantic"
 
