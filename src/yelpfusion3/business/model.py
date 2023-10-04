@@ -161,8 +161,8 @@ class Business(Model):
         raise ValueError("Invalid rating value.")
 
     @validator("image_url", pre=True)
-    def _image_url_blank(cls, value: HttpUrl):
-        if value.strip() == "":
+    def _image_url_blank(cls, value: HttpUrl) -> Optional[HttpUrl]:  # pylint: disable=E0213
+        if not value:
             return None
         return value
 
