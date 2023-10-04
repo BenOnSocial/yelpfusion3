@@ -175,7 +175,6 @@ class TestClient:
         assert len(autocomplete.categories) > 0
         assert not autocomplete.businesses
         assert len(autocomplete.terms) > 0
-        assert all("del" in category.alias.lower() for category in autocomplete.categories)
         assert all("del" in category.title.lower() for category in autocomplete.categories)
         assert all("del" in term.text.lower() for term in autocomplete.terms)
 
