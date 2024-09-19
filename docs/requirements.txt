@@ -3,4 +3,6 @@ sphinx-rtd-theme==1.0.0
 pycountry==22.3.5
 pydantic==1.10.13
 validators==0.21.0
-setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.2.2 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
