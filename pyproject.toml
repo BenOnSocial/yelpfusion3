@@ -7,6 +7,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yelpfusion3"
+description = "A Python client for the Yelp Fusion v3 API."
 authors = [
     {name = "Ben Tran"}
 ]
@@ -39,7 +40,6 @@ keywords = [
 ]
 dynamic = [
     "version",
-    "description",
 ]
 
 
