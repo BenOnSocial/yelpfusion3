@@ -14,9 +14,18 @@ commands:
     description: Common setup steps for basic jobs.
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-hatch-{{ checksum "pyproject.toml" }}
+            - v1-hatch-
       - run:
           name: Install hatch
           command: python -m pip install --upgrade --no-cache-dir pip hatch
+      - save_cache:
+          key: v1-hatch-{{ checksum "pyproject.toml" }}
+          paths:
+            - ~/.cache/pip
+            - .venv
 
   lint:
     description: Execute lint tasks and publish report artifacts.
